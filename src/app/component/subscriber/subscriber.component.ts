@@ -1,10 +1,10 @@
-import {Component, ElementRef, AfterViewInit, ViewChild, Input} from '@angular/core';
+import {Component, ElementRef, AfterViewInit, ViewChild, Input, OnInit} from '@angular/core';
 import * as OT from '@opentok/client';
 
 @Component({
   selector: 'app-subscriber',
   templateUrl: './subscriber.component.html',
-  styleUrls: ['./subscriber.component.css']
+  styleUrls: ['./subscriber.component.scss']
 })
 
 export class SubscriberComponent implements AfterViewInit {

@@ -1,7 +1,7 @@
 import {TestBed, async} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {PublisherComponent} from './publisher/publisher.component';
-import {SubscriberComponent} from './subscriber/subscriber.component';
+import {PublisherComponent} from './component/publisher/publisher.component';
+import {SubscriberComponent} from './component/subscriber/subscriber.component';
 import {OpentokService} from './opentok.service';
 
 describe('AppComponent', () => {
