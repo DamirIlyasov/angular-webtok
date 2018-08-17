@@ -1,8 +1,8 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { PublisherComponent } from './publisher/publisher.component';
-import { SubscriberComponent } from './subscriber/subscriber.component';
-import { OpentokService } from './opentok.service';
+import {TestBed, async} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {PublisherComponent} from './publisher/publisher.component';
+import {SubscriberComponent} from './subscriber/subscriber.component';
+import {OpentokService} from './opentok.service';
 
 describe('AppComponent', () => {
   let fixture;
@@ -10,8 +10,10 @@ describe('AppComponent', () => {
   let app;
   let opentokService;
   const OT = {
-    initSession() {},
-    initPublisher() {}
+    initSession() {
+    },
+    initPublisher() {
+    }
   };
 
   beforeEach(async(() => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import * as OT from '@opentok/client';
 import config from '../config';
@@ -9,7 +9,8 @@ export class OpentokService {
   session: OT.Session;
   token: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   getOT() {
     return OT;

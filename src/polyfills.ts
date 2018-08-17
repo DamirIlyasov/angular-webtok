@@ -53,7 +53,6 @@ import 'core-js/es7/reflect';
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 
-
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */
@@ -64,7 +63,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 import 'zone.js/dist/webapis-rtc-peer-connection';
 // getUserMedia patch
 import 'zone.js/dist/zone-patch-user-media.js';
-
 
 
 /***************************************************************************************************

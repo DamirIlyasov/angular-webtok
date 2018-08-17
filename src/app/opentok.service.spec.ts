@@ -1,7 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 import * as OT from '@opentok/client';
 
-import { OpentokService } from './opentok.service';
+import {OpentokService} from './opentok.service';
 import config from '../config';
 
 
@@ -31,7 +31,8 @@ describe('OpentokService', () => {
 
     describe('initSession()', () => {
       const mockOT = {
-        initSession() {}
+        initSession() {
+        }
       };
       let session;
 

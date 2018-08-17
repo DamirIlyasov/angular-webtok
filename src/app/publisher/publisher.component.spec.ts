@@ -1,14 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PublisherComponent } from './publisher.component';
-import { OpentokService } from '../opentok.service';
+import {PublisherComponent} from './publisher.component';
+import {OpentokService} from '../opentok.service';
 
 describe('PublisherComponent', () => {
   let component: PublisherComponent;
   let fixture: ComponentFixture<PublisherComponent>;
   const publisher = {};
   const OT = {
-    initPublisher() {}
+    initPublisher() {
+    }
   };
   const opentokServiceStub = {
     getOT() {
@@ -19,10 +20,10 @@ describe('PublisherComponent', () => {
   beforeEach(async(() => {
     spyOn(OT, 'initPublisher').and.callFake(() => publisher);
     TestBed.configureTestingModule({
-      declarations: [ PublisherComponent ],
-      providers: [ { provide: OpentokService, useValue: opentokServiceStub }]
+      declarations: [PublisherComponent],
+      providers: [{provide: OpentokService, useValue: opentokServiceStub}]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -38,7 +39,7 @@ describe('PublisherComponent', () => {
   });
 
   it('should call OT.initPublisher', () => {
-    expect(OT.initPublisher).toHaveBeenCalledWith(jasmine.any(Element), { insertMode: 'append' });
+    expect(OT.initPublisher).toHaveBeenCalledWith(jasmine.any(Element), {insertMode: 'append'});
   });
 
   it('should call publish on the session when receiving sessionConnected', () => {

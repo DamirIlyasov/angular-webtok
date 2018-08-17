@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
+import {Component, ElementRef, AfterViewInit, ViewChild, Input} from '@angular/core';
 import * as OT from '@opentok/client';
 
 @Component({
@@ -12,7 +12,8 @@ export class SubscriberComponent implements AfterViewInit {
   @Input() session: OT.Session;
   @Input() stream: OT.Stream;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngAfterViewInit() {
     const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {}, (err) => {
