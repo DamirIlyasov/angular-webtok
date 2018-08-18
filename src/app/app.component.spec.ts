@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { PublisherComponent } from './component/publisher/publisher.component';
 import { SubscriberComponent } from './component/subscriber/subscriber.component';
-import { OpentokService } from './opentok.service';
+import { OpentokService } from './core/service/opentok.service';
 
 describe('AppComponent', () => {
   let fixture;

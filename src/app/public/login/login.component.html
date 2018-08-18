@@ -1,0 +1,11 @@
+<div class="field">
+  <label>Login</label>
+  <input type="text" [(ngModel)]="request.login">
+</div>
+
+<div class="field">
+  <label>Password</label>
+  <input type="password" [(ngModel)]="request.password">
+</div>
+
+<button class="submit" [disabled]="!request.validate()" (click)="logIn()"></button>

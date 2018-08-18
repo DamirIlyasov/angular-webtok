@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as OT from '@opentok/client';
-import { API_KEY, SAMPLE_SERVER_BASE_URL, SESSION_ID, TOKEN } from '../config';
+import { API_KEY, SAMPLE_SERVER_BASE_URL, SESSION_ID, TOKEN } from '../../../config';
 
 @Injectable({
   providedIn: 'root'

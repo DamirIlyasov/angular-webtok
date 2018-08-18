@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import * as OT from '@opentok/client';
 import { OpentokService } from './opentok.service';
-import { API_KEY, SESSION_ID, TOKEN } from '../config';
+import { API_KEY, SESSION_ID, TOKEN } from '../../../config';
 
 
 describe('OpentokService', () => {
