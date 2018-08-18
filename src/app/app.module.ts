@@ -24,6 +24,7 @@ import { reducer as userReducer } from './core/state/user.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './core/effects/user.effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 const ROUTES: Routes = [
   {
@@ -65,6 +66,9 @@ const ROUTES: Routes = [
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25
+    }),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router'
     })
   ],
   bootstrap: [AppComponent]

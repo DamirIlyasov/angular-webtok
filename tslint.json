@@ -98,7 +98,6 @@
     "no-duplicate-switch-case": true,
     "no-duplicate-variable": true,
     "no-dynamic-delete": true,
-    "no-empty": true,
     "no-eval": true,
     "no-inferred-empty-object-type": true,
     "no-invalid-template-strings": true,

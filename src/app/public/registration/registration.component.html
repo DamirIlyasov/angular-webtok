@@ -1,3 +1,21 @@
-<p>
-  registration works!
-</p>
+<div class="field">
+  <label>First name</label>
+  <input type="text" [(ngModel)]="request.firstName">
+</div>
+
+<div class="field">
+  <label>Last name</label>
+  <input type="text" [(ngModel)]="request.lastName">
+</div>
+
+<div class="field">
+  <label>Login</label>
+  <input type="text" [(ngModel)]="request.login">
+</div>
+
+<div class="field">
+  <label>Password</label>
+  <input type="password" [(ngModel)]="request.password">
+</div>
+
+<button class="submit" [disabled]="!request.validate()" (click)="submit()">Log in</button>

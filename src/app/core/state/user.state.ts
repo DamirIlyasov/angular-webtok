@@ -1,9 +1,17 @@
+import { User } from '../model/user';
+
 export class UserState {
   static readonly default: UserState = Object.seal({
-    firstName: null,
-    lastName: null
+    user: {
+      firstName: null,
+      lastName: null
+    },
+    loading: false,
+    error: null,
+    errorUpdated: null
   });
-
-  firstName: string;
-  lastName: string;
+  user: User;
+  loading: boolean;
+  error: string;
+  errorUpdated: number;
 }

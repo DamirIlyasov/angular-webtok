@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
-import { LogInRequest } from '../model/log-in-request';
+import { AuthRequest } from '../model/auth-request';
 import { of } from 'rxjs/internal/observable/of';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { RegistrateRequest } from '../model/registrate-request';
 
 const MOCK_USER: User = {
   firstName: 'Damir',
@@ -13,8 +15,11 @@ const MOCK_USER: User = {
 })
 export class UserService {
 
-  login(request: LogInRequest) {
+  login(request: AuthRequest) {
     return of(MOCK_USER);
   }
 
+  registrate(request: RegistrateRequest) {
+    return of(MOCK_USER);
+  }
 }

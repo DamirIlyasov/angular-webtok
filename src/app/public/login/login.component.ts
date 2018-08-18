@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { LogInRequest } from '../../core/model/log-in-request';
+import { AuthRequest } from '../../core/model/auth-request';
+import { Store } from '@ngrx/store';
+import { State } from '../../app.reducers';
+import { AuthenticateAction } from '../../core/state/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +10,14 @@ import { LogInRequest } from '../../core/model/log-in-request';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  request = new AuthRequest();
 
-  request = new LogInRequest();
+  constructor(private store: Store<State>) {
+  }
 
-  logIn() {
+  submit() {
     if (this.request.validate()) {
-
+      this.store.dispatch(new AuthenticateAction(this.request));
     }
   }
 }

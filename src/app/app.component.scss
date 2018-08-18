@@ -1,6 +1,11 @@
 
-:host {
-  header {
-    text-align: left;
+::ng-deep {
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    width: 200px;
   }
 }
