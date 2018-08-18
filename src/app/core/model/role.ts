@@ -1,4 +1,5 @@
 export enum Role {
   SUBSCRIBER = 'Subscriber',
-  PUBLISHER = 'Broadcaster'
+  PUBLISHER = 'Broadcaster',
+  NOT_SELECTED = 'NotSelected'
 }

@@ -1,17 +1,22 @@
 <!--<h1>{{title}}</h1>-->
 
 <div class="main">
-  <div class="video" *ngIf="session" ngSwitch="{{role}}">
-    <app-publisher *ngSwitchCase="'Broadcaster'" [session]="session"></app-publisher>
-    <div class="subscriber" *ngSwitchCase="'Subscriber'">
+  <div class="video" *ngIf="session">
+    <app-publisher *ngIf="role === ROLE.PUBLISHER" [session]="session"></app-publisher>
+    <div class="subscriber" *ngIf="role === ROLE.SUBSCRIBER">
       <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session"></app-subscriber>
       <p *ngIf="streams.length === 0">There are no streams yet</p>
     </div>
   </div>
+
+
   <div class="connecting" *ngIf="!session">
     Connecting, please wait...
   </div>
+
+
   <select [(ngModel)]="role">
+    <option selected="selected" [value]="ROLE.NOT_SELECTED">Select role</option>
     <option [value]="ROLE.PUBLISHER">Publisher</option>
     <option [value]="ROLE.SUBSCRIBER">Subscriber</option>
   </select>

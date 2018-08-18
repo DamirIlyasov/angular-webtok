@@ -1,7 +1,7 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PublisherComponent} from './publisher.component';
-import {OpentokService} from '../../opentok.service';
+import { PublisherComponent } from './publisher.component';
+import { OpentokService } from '../../opentok.service';
 
 describe('PublisherComponent', () => {
   let component: PublisherComponent;
@@ -9,6 +9,7 @@ describe('PublisherComponent', () => {
   const publisher = {};
   const OT = {
     initPublisher() {
+      //
     }
   };
   const opentokServiceStub = {

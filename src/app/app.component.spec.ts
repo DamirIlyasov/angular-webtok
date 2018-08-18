@@ -1,8 +1,8 @@
-import {TestBed, async} from '@angular/core/testing';
-import {AppComponent} from './app.component';
-import {PublisherComponent} from './component/publisher/publisher.component';
-import {SubscriberComponent} from './component/subscriber/subscriber.component';
-import {OpentokService} from './opentok.service';
+import { async, TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { PublisherComponent } from './component/publisher/publisher.component';
+import { SubscriberComponent } from './component/subscriber/subscriber.component';
+import { OpentokService } from './opentok.service';
 
 describe('AppComponent', () => {
   let fixture;
@@ -11,8 +11,10 @@ describe('AppComponent', () => {
   let opentokService;
   const OT = {
     initSession() {
+      //
     },
     initPublisher() {
+      //
     }
   };
 
@@ -22,8 +24,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         PublisherComponent,
-        SubscriberComponent,
-      ],
+        SubscriberComponent
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     opentokService = fixture.debugElement.injector.get(OpentokService);

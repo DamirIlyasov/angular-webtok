@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import * as OT from '@opentok/client';
-import {OpentokService} from '../../opentok.service';
-import {Role} from '../../core/model/role';
+import { OpentokService } from '../../opentok.service';
+import { Role } from '../../core/model/role';
 
 @Component({
   selector: 'app-stream',
@@ -15,7 +15,7 @@ export class StreamComponent implements OnInit {
   session: OT.Session;
   streams: Array<OT.Stream> = [];
   changeDetectorRef: ChangeDetectorRef;
-  role = Role.SUBSCRIBER;
+  role = Role.NOT_SELECTED;
 
   constructor(private ref: ChangeDetectorRef, private opentokService: OpentokService) {
     this.changeDetectorRef = ref;
@@ -24,11 +24,11 @@ export class StreamComponent implements OnInit {
   ngOnInit() {
     this.opentokService.initSession().then((session: OT.Session) => {
       this.session = session;
-      this.session.on('streamCreated', (event) => {
+      this.session.on('streamCreated', event => {
         this.streams.push(event.stream);
         this.changeDetectorRef.detectChanges();
       });
-      this.session.on('streamDestroyed', (event) => {
+      this.session.on('streamDestroyed', event => {
         const idx = this.streams.indexOf(event.stream);
         if (idx > -1) {
           this.streams.splice(idx, 1);
@@ -37,9 +37,9 @@ export class StreamComponent implements OnInit {
       });
     })
       .then(() => this.opentokService.connect())
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
-        alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
+        alert('Unable to connect.');
       });
   }
 }

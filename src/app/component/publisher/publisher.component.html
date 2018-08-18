@@ -3,5 +3,5 @@
   <p>Viewers: {{viewersCount}}</p>
   <p>Status: {{publishing? 'Online' : 'Offline'}}</p>
 </div>
-<button [disabled]="!isAvailableToPublish()" (click)="publish()">Start stream</button>
-<button [disabled]="!isAvailableToUnpublish()" (click)="unpublish()">Stop stream</button>
+<button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()">Start stream</button>
+<button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()">Stop stream</button>
