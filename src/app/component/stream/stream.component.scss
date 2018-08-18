@@ -1,0 +1,9 @@
+:host {
+  text-align: left;
+
+  .subscriber {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+  }
+}
