@@ -1,0 +1,10 @@
+:host {
+  margin: 60% auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+}

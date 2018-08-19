@@ -1,3 +1,8 @@
-<div #subscriberDiv></div>
-<div *ngIf="!stream">Stream is offline</div>
+<div #subscriberDiv class="subscriber"></div>
+<div *ngIf="isOffline" class="offline">
+  Stream is offline
+</div>
+<div class="info">
+  Viewers: {{viewersCount === -1? 0 : isOffline? viewersCount : viewersCount - 1}}
+</div>
 

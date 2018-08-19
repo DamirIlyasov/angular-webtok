@@ -1,7 +1,15 @@
-<div [class.publishing]="publishing" #publisherDiv></div>
-<div>
-  <p>Viewers: {{viewersCount}}</p>
+<div [class.publishing]="publishing" #publisherDiv class="publisher"></div>
+<div class="info">
+  <p>Viewers: {{viewersCount === -1 ? 0: viewersCount}}</p>
+  <button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()" class="button publish">Начать
+    вещание
+  </button>
+  <button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()" class="button unpublish">
+    Остановить
+  </button>
   <p>Status: {{publishing? 'Online' : 'Offline'}}</p>
 </div>
-<button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()">Start stream</button>
-<button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()">Stop stream</button>
+<div class="invite">
+  <span id="invite-link">{{inviteLink}}</span>
+  <button ngxClipboard [cbContent]="inviteLink">Скопировать пригласительную ссылку</button>
+</div>

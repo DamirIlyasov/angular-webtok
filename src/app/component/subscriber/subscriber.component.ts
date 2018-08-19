@@ -13,36 +13,25 @@ export class SubscriberComponent implements OnInit {
   session: OT.Session;
   stream: OT.Stream;
   subscriber;
+  isOffline = true;
+  viewersCount = 0;
 
   constructor(private opentokService: OpentokService, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    // from(this.opentokService.initSession()).pipe(
-    //   map((session: OT.Session) => {
-    //     this.session = session;
-    //     this.session.on('streamCreated', event => {
-    //       this.stream = event.stream;
-    //       this.changeDetector.detectChanges();
-    //     });
-    //   }),
-    //   map(() => from(this.opentokService.connect()).pipe(
-    //     map(() => this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {}, err => {
-    //       if (err) {
-    //         throwError(err.message);
-    //       }
-    //     }))
-    //   )),
-    //   catchError((err1, err2) =>
-    //     of(console.log(err1, err2))
-    //   )
-    // )
     this.opentokService.initSession().then((session: OT.Session) => {
       this.session = session;
       this.session.on('sessionConnected', event => {
         if (event.target['streams'].length() !== 0) {
           this.subscribe(event.target['streams'].find());
         }
+      });
+      this.session.on('connectionCreated', event => {
+        this.viewersCount++;
+      });
+      this.session.on('connectionDestroyed', event => {
+        this.viewersCount--;
       });
       // const subscriber =
     })
@@ -52,8 +41,8 @@ export class SubscriberComponent implements OnInit {
             this.subscribe(event.stream);
           });
           this.session.on('streamDestroyed', event => {
-            event.preventDefault();
-            // this.session.unsubscribe(this.subscriber);
+            this.isOffline = true;
+            this.changeDetector.detectChanges();
           });
           this.changeDetector.detectChanges();
         }))
@@ -65,11 +54,17 @@ export class SubscriberComponent implements OnInit {
 
   private subscribe(stream: OT.Stream) {
     this.stream = stream;
-    this.subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {}, err => {
+    this.subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%'
+    }, err => {
       if (err) {
         alert(err.message);
+      } else {
+        this.isOffline = false;
+        this.changeDetector.detectChanges();
       }
     });
-    this.changeDetector.detectChanges();
   }
 }

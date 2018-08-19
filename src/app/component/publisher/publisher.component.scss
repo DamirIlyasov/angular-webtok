@@ -1,1 +1,43 @@
 
+:host {
+  width: 300px;
+
+  .publisher {
+    height: 500px;
+  }
+
+  .info {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .button {
+    width: 130px;
+    border-radius: 10%;
+    box-shadow: none;
+  }
+
+  .button.publish:disabled {
+    background-color: gray
+  }
+  .button.publish {
+    background-color: green;
+    color: black;
+  }
+  .button.unpublish {
+    background-color: red;
+    color: white;
+  }
+
+  .invite {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    button {
+      padding: 0 10px;
+    }
+  }
+}

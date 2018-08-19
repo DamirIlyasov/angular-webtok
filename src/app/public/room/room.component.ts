@@ -34,7 +34,6 @@ export class RoomComponent implements OnInit {
         this.showInputName = false;
       }
     });
-    this.inviteLink = window.location.href;
   }
 
   submitName() {

@@ -13,15 +13,20 @@ export class PublisherComponent implements AfterViewInit, OnInit {
   session: OT.Session;
   publisher: OT.Publisher;
   publishing = false;
-  viewersCount = 0;
+  viewersCount = -1;
   stream: OT.Stream;
+  inviteLink: string;
 
   constructor(private opentokService: OpentokService) {
   }
 
   ngAfterViewInit() {
     const ot = this.opentokService.getOT();
-    this.publisher = ot.initPublisher(this.publisherDiv.nativeElement, {insertMode: 'append', resolution: '1280x960'});
+    this.publisher = ot.initPublisher(this.publisherDiv.nativeElement, {
+      insertMode: 'append',
+      resolution: '640x480', width: '100%',
+      height: '100%'
+    });
     this.publisher.on('streamDestroyed', event => {
       event.preventDefault();
     });
@@ -58,12 +63,10 @@ export class PublisherComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    this.inviteLink = window.location.href;
     this.opentokService.initSession()
       .then((session: OT.Session) => {
         this.session = session;
-        this.session.on('sessionConnected', event => {
-          this.viewersCount = event.target['connections'].length() - 2;
-        });
         this.session.on('connectionCreated', event => {
           this.viewersCount++;
         });
