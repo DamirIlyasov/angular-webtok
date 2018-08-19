@@ -1,13 +1,7 @@
 import { UserState } from './core/state/user.state';
-import { reducer as userReducer } from './core/state/user.reducer';
-import { ActionReducer, combineReducers } from '@ngrx/store';
+import { RoomState } from './public/room/room.state';
 
 export interface State {
   user: UserState;
+  room: RoomState;
 }
-
-const reducers = {
-  user: userReducer
-};
-
-export const reducer: ActionReducer<State> = combineReducers(reducers);

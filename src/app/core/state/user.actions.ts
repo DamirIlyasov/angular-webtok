@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { User } from '../model/user';
 import { AuthRequest } from '../model/auth-request';
 import { RegistrateRequest } from '../model/registrate-request';
+import { Room } from '../model/room';
 
 export const ActionTypes = {
   AUTHENTICATE: '[user] Authenticate',
@@ -9,7 +10,7 @@ export const ActionTypes = {
   AUTHENTICATE_ERROR: '[user] Authenticate error',
   REGISTRATE: '[user] Registration',
   REGISTRATE_SUCCESS: '[user] Registrate success',
-  REGISTRATE_ERROR: '[user] Registrate error'
+  REGISTRATE_ERROR: '[user] Registrate error',
 };
 
 export class AuthenticateAction implements Action {

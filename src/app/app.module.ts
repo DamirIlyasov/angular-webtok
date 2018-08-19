@@ -21,10 +21,13 @@ import { RoomComponent } from './public/room/room.component';
 import { DashboardComponent } from './authorized/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer as userReducer } from './core/state/user.reducer';
+import { reducer as roomReducer } from './public/room/room.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './core/effects/user.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RoomEffects } from './public/room/room.effects';
+import { ClipboardModule } from 'ngx-clipboard';
 
 const ROUTES: Routes = [
   {
@@ -57,12 +60,15 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ClipboardModule,
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot({
-      user: userReducer
+      user: userReducer,
+      room: roomReducer
     }),
     EffectsModule.forRoot([
-      UserEffects
+      UserEffects,
+      RoomEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25

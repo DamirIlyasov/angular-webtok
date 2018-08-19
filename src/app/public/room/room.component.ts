@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { createSelector, select, Store } from '@ngrx/store';
+import { State } from '../../app.reducers';
+import { UserState } from '../../core/state/user.state';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { Role } from '../../core/model/role';
+import { User } from '../../core/model/user';
+
+const getUser = createSelector(
+  (state: State) => state.user,
+  (state: UserState) => state.user
+);
 
 @Component({
   selector: 'app-room',
@@ -7,9 +18,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomComponent implements OnInit {
 
-  constructor() { }
+  ROLE = Role;
+  inviteLink: string;
+  user: User;
+  showInputName = true;
 
-  ngOnInit() {
+  constructor(private store: Store<State>) {
+
   }
 
+  ngOnInit() {
+    this.store.pipe(select(getUser), distinctUntilChanged()).subscribe(user => {
+      this.user = user;
+      if (user.firstName) {
+        this.showInputName = false;
+      }
+    });
+    this.inviteLink = window.location.href;
+  }
+
+  submitName() {
+    if (this.user.firstName) {
+      this.showInputName = false;
+    }
+  }
 }

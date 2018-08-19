@@ -1,3 +1,16 @@
-<p>
-  room works!
-</p>
+<div class="main">
+  <div *ngIf="showInputName">
+    Input name
+    <input type="text" [(ngModel)]="user.firstName">
+    <button (click)="submitName()">Submit</button>
+  </div>
+  <div class="translation">
+    <app-publisher *ngIf="user.role === ROLE.PUBLISHER"></app-publisher>
+    <app-subscriber *ngIf="user.role !== ROLE.PUBLISHER && !showInputName"></app-subscriber>
+  </div>
+
+  <div *ngIf="user.role === ROLE.PUBLISHER">
+    Invite link: <p id="invite-link">{{inviteLink}}</p>
+    <button ngxClipboard [cbContent]="inviteLink">Copy</button>
+  </div>
+</div>

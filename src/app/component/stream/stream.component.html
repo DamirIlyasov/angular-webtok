@@ -1,8 +1,8 @@
 <div class="main">
   <div class="video" *ngIf="session">
-    <app-publisher *ngIf="role === ROLE.PUBLISHER" [session]="session"></app-publisher>
+    <!--<app-publisher *ngIf="role === ROLE.PUBLISHER" [session]="session"></app-publisher>-->
     <div class="subscriber" *ngIf="role === ROLE.SUBSCRIBER">
-      <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session"></app-subscriber>
+      <!--<app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session"></app-subscriber>-->
       <p *ngIf="streams.length === 0">There are no streams yet</p>
     </div>
   </div>

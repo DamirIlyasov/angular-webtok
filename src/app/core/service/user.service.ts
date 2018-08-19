@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { AuthRequest } from '../model/auth-request';
 import { of } from 'rxjs/internal/observable/of';
-import { throwError } from 'rxjs/internal/observable/throwError';
 import { RegistrateRequest } from '../model/registrate-request';
+import { Role } from '../model/role';
 
 const MOCK_USER: User = {
   firstName: 'Damir',
-  lastName: 'Ilyasov'
+  lastName: 'Ilyasov',
+  role: Role.PUBLISHER
 };
 
 @Injectable({

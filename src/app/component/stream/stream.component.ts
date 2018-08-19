@@ -14,11 +14,9 @@ export class StreamComponent implements OnInit {
   ROLE = Role;
   session: OT.Session;
   streams: Array<OT.Stream> = [];
-  changeDetectorRef: ChangeDetectorRef;
   role = Role.NOT_SELECTED;
 
-  constructor(private ref: ChangeDetectorRef, private opentokService: OpentokService) {
-    this.changeDetectorRef = ref;
+  constructor(private changeDetector: ChangeDetectorRef, private opentokService: OpentokService) {
   }
 
   ngOnInit() {
@@ -26,13 +24,13 @@ export class StreamComponent implements OnInit {
       this.session = session;
       this.session.on('streamCreated', event => {
         this.streams.push(event.stream);
-        this.changeDetectorRef.detectChanges();
+        this.changeDetector.detectChanges();
       });
       this.session.on('streamDestroyed', event => {
         const idx = this.streams.indexOf(event.stream);
         if (idx > -1) {
           this.streams.splice(idx, 1);
-          this.changeDetectorRef.detectChanges();
+          this.changeDetector.detectChanges();
         }
       });
     })
