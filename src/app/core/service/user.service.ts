@@ -6,8 +6,8 @@ import { RegistrateRequest } from '../model/registrate-request';
 import { Role } from '../model/role';
 
 const MOCK_USER: User = {
-  firstName: 'Damir',
-  lastName: 'Ilyasov',
+  login: 'Damir',
+  email: 'test@gmail.com',
   role: Role.PUBLISHER
 };
 

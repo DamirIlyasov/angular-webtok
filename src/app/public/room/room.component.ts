@@ -5,10 +5,17 @@ import { UserState } from '../../core/state/user.state';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Role } from '../../core/model/role';
 import { User } from '../../core/model/user';
+import { GetRoomInfoAction } from './room.actions';
+import { RoomState } from './room.state';
 
 const getUser = createSelector(
   (state: State) => state.user,
   (state: UserState) => state.user
+);
+
+const getRoom = createSelector(
+  (state: State) => state.room,
+  (state: RoomState) => state.room
 );
 
 @Component({
@@ -22,6 +29,7 @@ export class RoomComponent implements OnInit {
   inviteLink: string;
   user: User;
   showInputName = true;
+  room = this.store.pipe(select(getRoom), distinctUntilChanged());
 
   constructor(private store: Store<State>) {
 
@@ -30,14 +38,16 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.store.pipe(select(getUser), distinctUntilChanged()).subscribe(user => {
       this.user = user;
-      if (user.firstName) {
+      if (user.login) {
         this.showInputName = false;
       }
     });
   }
 
   submitName() {
-    if (this.user.firstName) {
+    if (this.user.login) {
+      const roomKey = window.location.pathname.replace('/room/', '');
+      this.store.dispatch(new GetRoomInfoAction({roomKey}));
       this.showInputName = false;
     }
   }

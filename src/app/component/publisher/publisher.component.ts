@@ -10,7 +10,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 const getRoom = createSelector(
   (state: State) => state.room,
   (state: RoomState) => state.room
-)
+);
 
 @Component({
   selector: 'app-publisher',
@@ -63,8 +63,7 @@ export class PublisherComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(room => {
       this.room = room;
-      const ot = this.opentokService.getOT();
-      this.publisher = ot.initPublisher(this.publisherDiv.nativeElement, {
+      this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
         insertMode: 'append',
         resolution: '640x480', width: '100%',
         height: '100%',
@@ -76,23 +75,32 @@ export class PublisherComponent implements OnInit {
       this.publisher.on('streamCreated', event => {
         this.stream = event.stream;
       });
+      this.session = this.opentokService.initSession(room.apiKey, room.sessionId);
+      this.session.on('connectionCreated', event => {
+        this.viewersCount++;
+      });
+      this.session.on('connectionDestroyed', event => {
+        this.viewersCount--;
+      });
+      this.opentokService.connect(this.session, room.token).catch(alert);
     });
 
     this.inviteLink = window.location.href;
-    this.opentokService.initSession()
-      .then((session: OT.Session) => {
-        this.session = session;
-        this.session.on('connectionCreated', event => {
-          this.viewersCount++;
-        });
-        this.session.on('connectionDestroyed', event => {
-          this.viewersCount--;
-        });
-        this.opentokService.connect();
-      })
-      .catch(err => {
-        console.log(err);
-        alert('Unable to connect.');
-      });
+    // this.opentokService.initSession(this.room.apiKey, this.room.sessionId)
+    // this.opentokService.initSession()
+    //   .then((session: OT.Session) => {
+    //     this.session = session;
+    //     this.session.on('connectionCreated', event => {
+    //       this.viewersCount++;
+    //     });
+    //     this.session.on('connectionDestroyed', event => {
+    //       this.viewersCount--;
+    //     });
+    //     this.opentokService.connect();
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     alert('Unable to connect.');
+    //   });
   }
 }

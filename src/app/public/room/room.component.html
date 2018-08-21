@@ -1,9 +1,10 @@
 <div *ngIf="showInputName">
   Input name
-  <input type="text" [(ngModel)]="user.firstName">
+  <input type="text" [(ngModel)]="user.login">
   <button (click)="submitName()">Submit</button>
 </div>
 <div class="translation">
+  <span>{{(room | async).name}}</span>
   <app-publisher *ngIf="user.role === ROLE.PUBLISHER"></app-publisher>
   <app-subscriber *ngIf="user.role !== ROLE.PUBLISHER && !showInputName"></app-subscriber>
 </div>

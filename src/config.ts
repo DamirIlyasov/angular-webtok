@@ -9,7 +9,4 @@
 //   SESSION_ID: '',
 //   TOKEN: ''
 // };
-export const SAMPLE_SERVER_BASE_URL = 'http://live-zoom-h264.herokuapp.com/';
-export let API_KEY: string;
-export let SESSION_ID: string;
-export let TOKEN: string;
+// export const SAMPLE_SERVER_BASE_URL = 'http://live-zoom-h264.herokuapp.com/';
