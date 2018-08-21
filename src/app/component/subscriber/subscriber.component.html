@@ -9,7 +9,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <p class="offset-1">Зрителей: {{viewersCount === -1 ? 0: viewersCount}}</p>
+      <p class="offset-1">Зрителей: {{isOffline ? viewersCount: viewersCount - 1}}</p>
     </div>
     <div class="row invite align-bottom">
       <span id="invite-link" class="offset-1">Пригласительная ссылка</span>

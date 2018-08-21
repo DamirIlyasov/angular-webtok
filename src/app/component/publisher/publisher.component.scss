@@ -11,8 +11,14 @@
       height: 70%;
     }
 
+    .publisher.fullscreen {
+      width: 100%;
+      height: 100%;
+    }
+
     .container {
       margin: 0;
+      max-width: none;
     }
 
     .col-3 {
@@ -26,6 +32,22 @@
     .viewers, .status {
       font-size: 13px;
     }
+  }
+
+  .fullscreen-icon{
+    font-size: 20px;
+    z-index: 99;
+    position: absolute;
+    color: black;
+    top: 66%;
+    right: 10px;
+  }
+  .fullscreen-icon.fullscreen{
+    z-index: 99;
+    position: absolute;
+    color: black;
+    top: 96%;
+    right: 10px;
   }
 
 }

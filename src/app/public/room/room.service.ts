@@ -23,7 +23,7 @@ const MOCK_ROOM_2: Room = {
 })
 export class RoomService {
   createRoom(roomName: string) {
-    return of(MOCK_ROOM_1)
+    return of(MOCK_ROOM_1);
   }
 
   getRoomInfo(roomKey: string) {
