@@ -1,15 +1,26 @@
-<div [class.publishing]="publishing" #publisherDiv class="publisher"></div>
-<div class="info">
-  <p>Viewers: {{viewersCount === -1 ? 0: viewersCount}}</p>
-  <button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()" class="button publish">Начать
-    вещание
-  </button>
-  <button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()" class="button unpublish">
-    Остановить
-  </button>
-  <p>Status: {{publishing? 'Online' : 'Offline'}}</p>
+<div class="card bg-light publisher-container">
+  <div [class.publishing]="publishing" #publisherDiv class="publisher"></div>
+  <div class="container">
+    <div class="row">
+      <p class="col-3 col- text-center viewers">Зрителей: <br/> {{viewersCount === -1 ? 0: viewersCount}}</p>
+      <button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()"
+              class="btn btn-success publish col-6">Начать
+        вещание
+
+      </button>
+      <button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()"
+              class="btn btn-danger unpublish col-6">
+        Остановить
+      </button>
+      <p class="col-3 text-center status">Статус: <br/> {{publishing? 'В сети' : 'Не в сети'}}</p>
+    </div>
+    <div class="row invite align-bottom">
+      <span id="invite-link" class="offset-1">Пригласительная ссылка</span>
+    </div>
+    <div class="row">
+      <input class="col-6 offset-1" [value]="inviteLink" type="text">
+      <button class="btn btn-info col-4" ngxClipboard [cbContent]="inviteLink">Скопировать</button>
+    </div>
+  </div>
 </div>
-<div class="invite">
-  <span id="invite-link">{{inviteLink}}</span>
-  <button ngxClipboard [cbContent]="inviteLink">Скопировать пригласительную ссылку</button>
-</div>
+

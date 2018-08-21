@@ -1,6 +1,21 @@
-<div class="field">
-  <label>Room name</label>
-  <input type="text" [(ngModel)]="roomName">
+<div class="container">
+  <div class="card bg-light">
+    <article class="card-body mx-auto">
+      <h4 class="card-title mt-3 text-center">Создайте комнату</h4>
+      <form>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input [(ngModel)]="roomName" [ngModelOptions]="{standalone: true}" name="" class="form-control"
+                 placeholder="Имя комнаты" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" (click)="createRoom()" [disabled]="!roomName">
+            Создать
+          </button>
+        </div> <!-- form-group// -->
+      </form>
+    </article>
+  </div> <!-- card.// -->
 </div>
-
-<button class="submit" (click)="createRoom()">Create room</button>

@@ -1,43 +1,33 @@
-
 :host {
-  width: 300px;
 
-  .publisher {
-    height: 500px;
-  }
+  height: 100%;
 
-  .info {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+  .card.bg-light.publisher-container {
+    width: 100%;
+    height: 100%;
 
-  .button {
-    width: 130px;
-    border-radius: 10%;
-    box-shadow: none;
-  }
+    .publisher {
+      width: 100%;
+      height: 70%;
+    }
 
-  .button.publish:disabled {
-    background-color: gray
-  }
-  .button.publish {
-    background-color: green;
-    color: black;
-  }
-  .button.unpublish {
-    background-color: red;
-    color: white;
-  }
+    .container {
+      margin: 0;
+    }
 
-  .invite {
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    button {
-      padding: 0 10px;
+    .col-3 {
+      padding-left: 6px;
+    }
+
+    .invite {
+      margin-top: 25px;
+    }
+
+    .viewers, .status {
+      font-size: 13px;
     }
   }
+
 }
+
+

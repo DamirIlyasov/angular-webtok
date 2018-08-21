@@ -1,8 +1,23 @@
-<div #subscriberDiv class="subscriber"></div>
-<div *ngIf="isOffline" class="offline">
-  Трансляция скоро начнётся
-</div>
-<div class="info">
-  Viewers: {{viewersCount === -1? 0 : isOffline? viewersCount : viewersCount - 1}}
+<div class="card bg-light subscriber-container">
+  <div [class.display-none]="isOffline" #subscriberDiv class="subscriber"
+       [class.fullscreen]="inFullScreen">
+    <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
+       (click)="changeFullScreen()"></p>
+  </div>
+  <div *ngIf="isOffline" class="offline">
+    <p>Трансляция скоро начнётся</p>
+  </div>
+  <div class="container">
+    <div class="row">
+      <p class="offset-1">Зрителей: {{viewersCount === -1 ? 0: viewersCount}}</p>
+    </div>
+    <div class="row invite align-bottom">
+      <span id="invite-link" class="offset-1">Пригласительная ссылка</span>
+    </div>
+    <div class="row">
+      <input class="col-6 offset-1" [value]="inviteLink" type="text">
+      <button class="btn btn-info col-4" ngxClipboard [cbContent]="inviteLink">Скопировать</button>
+    </div>
+  </div>
 </div>
 

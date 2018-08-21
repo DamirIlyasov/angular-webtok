@@ -12,6 +12,7 @@ import { RegistrateAction } from '../../core/state/user.actions';
 export class RegistrationComponent {
 
   request = new RegistrateRequest();
+  repeatPassword: string;
 
   constructor(private store: Store<State>) {
   }
@@ -20,5 +21,12 @@ export class RegistrationComponent {
     if (this.request.validate()) {
       this.store.dispatch(new RegistrateAction(this.request));
     }
+  }
+
+  isPasswordSame() {
+    if (this.request.password && this.repeatPassword) {
+      return this.request.password === this.repeatPassword;
+    }
+    return true;
   }
 }

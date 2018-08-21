@@ -1,11 +1,31 @@
-<div class="field">
-  <label>Login</label>
-  <input type="text" [(ngModel)]="request.login">
-</div>
+<div class="container">
+  <div class="card bg-light">
+    <article class="card-body mx-auto" >
+      <h4 class="card-title mt-3 text-center">Авторизация</h4>
+      <p class="text-center">Войди и создавай трансляции</p>
+      <form>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input [(ngModel)]="request.login" [ngModelOptions]="{standalone: true}" name="" class="form-control"
+                 placeholder="Логин" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input [(ngModel)]="request.password" [ngModelOptions]="{standalone: true}" class="form-control"
+                 placeholder="Пароль" type="password">
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" (click)="submit()" [disabled]="!request.validate()">
+            Войти
+          </button>
+        </div> <!-- form-group// -->
+        <p class="text-center">Нет аккаунта? <a routerLink="/registration">Зарегистрироваться</a></p>
+      </form>
+    </article>
+  </div> <!-- card.// -->
 
-<div class="field">
-  <label>Password</label>
-  <input type="password" [(ngModel)]="request.password">
 </div>
-
-<button class="submit" [disabled]="!request.validate()" (click)="submit()">Log in</button>

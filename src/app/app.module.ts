@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PublisherComponent } from './component/publisher/publisher.component';
 import { SubscriberComponent } from './component/subscriber/subscriber.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { PublicComponent } from './public/public.component';
 import { RouterModule, Routes } from '@angular/router';
 import {

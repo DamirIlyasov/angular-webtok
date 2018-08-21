@@ -26,6 +26,7 @@ export class PublisherComponent implements OnInit {
   stream: OT.Stream;
   inviteLink: string;
   room: Room;
+  isFullScreen = false;
 
   constructor(private opentokService: OpentokService, private store: Store<State>) {
   }
@@ -86,21 +87,5 @@ export class PublisherComponent implements OnInit {
     });
 
     this.inviteLink = window.location.href;
-    // this.opentokService.initSession(this.room.apiKey, this.room.sessionId)
-    // this.opentokService.initSession()
-    //   .then((session: OT.Session) => {
-    //     this.session = session;
-    //     this.session.on('connectionCreated', event => {
-    //       this.viewersCount++;
-    //     });
-    //     this.session.on('connectionDestroyed', event => {
-    //       this.viewersCount--;
-    //     });
-    //     this.opentokService.connect();
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     alert('Unable to connect.');
-    //   });
   }
 }
