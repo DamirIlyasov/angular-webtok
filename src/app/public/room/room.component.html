@@ -1,11 +1,28 @@
 <div *ngIf="showInputName">
-  Input name
-  <input type="text" [(ngModel)]="user.login">
-  <button (click)="submitName()">Submit</button>
+  <div class="container">
+    <div class="card bg-light">
+      <article class="card-body mx-auto">
+        <h4 class="card-title mt-3 text-center">Введите Ваше имя</h4>
+        <form>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            </div>
+            <input [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}" name="" class="form-control"
+                   placeholder="Ваше имя" type="text">
+          </div> <!-- form-group// -->
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" (click)="submitName()" [disabled]="!user.login">
+              Войти
+            </button>
+          </div> <!-- form-group// -->
+        </form>
+      </article>
+    </div> <!-- card.// -->
+  </div>
 </div>
-<div class="translation">
-  <span>{{(room | async).name}}</span>
+
+<div *ngIf="!showInputName" class="main">
   <app-publisher *ngIf="user.role === ROLE.PUBLISHER"></app-publisher>
   <app-subscriber *ngIf="user.role !== ROLE.PUBLISHER && !showInputName"></app-subscriber>
 </div>
-

@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+.container {
+  margin-top: 50px;
+  max-width: 400px;
+}
+.error-message {
+  color: red;
+}
+
+body, html, main{
+  height: 100%;
+  font-size: 14px;
+}
+

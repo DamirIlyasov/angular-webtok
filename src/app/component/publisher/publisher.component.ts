@@ -26,6 +26,7 @@ export class PublisherComponent implements OnInit {
   stream: OT.Stream;
   inviteLink: string;
   room: Room;
+  inFullScreen = false;
 
   constructor(private opentokService: OpentokService, private store: Store<State>) {
   }
@@ -58,6 +59,13 @@ export class PublisherComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.addEventListener('webkitfullscreenchange', () => {
+      this.inFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null);
+      // ||
+      // (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+      // (document.msFullscreenElement && document.msFullscreenElement !== null);
+    });
     this.store.pipe(
       select(getRoom),
       distinctUntilChanged()
@@ -86,21 +94,34 @@ export class PublisherComponent implements OnInit {
     });
 
     this.inviteLink = window.location.href;
-    // this.opentokService.initSession(this.room.apiKey, this.room.sessionId)
-    // this.opentokService.initSession()
-    //   .then((session: OT.Session) => {
-    //     this.session = session;
-    //     this.session.on('connectionCreated', event => {
-    //       this.viewersCount++;
-    //     });
-    //     this.session.on('connectionDestroyed', event => {
-    //       this.viewersCount--;
-    //     });
-    //     this.opentokService.connect();
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     alert('Unable to connect.');
-    //   });
+  }
+
+  changeFullScreen() {
+    if (!this.inFullScreen) {
+      const elem = document.getElementsByClassName('publisher').item(0);
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      }
+      // else if (elem.mozRequestFullScreen) { /* Firefox */
+      //   elem.mozRequestFullScreen();
+      // }
+      else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+      }
+      // else if (elem.msRequestFullscreen) { /* IE/Edge */
+      //   elem.msRequestFullscreen();
+      // }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      // else if (document.mozCancelFullScreen) {
+      //   document.mozCancelFullScreen();
+      // } else if (document.msExitFullscreen) {
+      //   document.msExitFullscreen();
+      // }
+    }
   }
 }

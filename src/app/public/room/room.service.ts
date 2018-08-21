@@ -3,19 +3,19 @@ import { of } from 'rxjs/internal/observable/of';
 import { Room } from '../../core/model/room';
 
 const MOCK_ROOM_1: Room = {
-  name: 'Mocked room name 1',
+  name: 'Захардкоженое имя комнаты 1',
   roomKey: 'mockedRoomKey1',
   apiKey: '46173252',
-  sessionId: '2_MX40NjE3MzI1Mn5-MTUzNDg1NzAyNDEyM34yd2RYWGJUaXJoZUtUQU5keGdSMEVRM3p-fg',
-  token: 'T1==cGFydG5lcl9pZD00NjE3MzI1MiZzaWc9N2E3MjIxMzBmYWQ2NDNlMzY1OTQ1YzM0YjQ1OWI2MDg0MmFjMDQ0NzpzZXNzaW9uX2lkPTJfTVg0ME5qRTNNekkxTW41LU1UVXpORGcxTnpBeU5ERXlNMzR5ZDJSWVdHSlVhWEpvWlV0VVFVNWtlR2RTTUVWUk0zcC1mZyZjcmVhdGVfdGltZT0xNTM0ODU3MDI0JnJvbGU9cHVibGlzaGVyJm5vbmNlPTE1MzQ4NTcwMjQuMTcxOTEyNzQxNjk2NzU='
+  sessionId: '2_MX40NjE3MzI1Mn5-MTUzNDg4OTM0MDkyNX4rOTVxNzdHQ3hFa3dvdEpOR2RoSjN3dGN-fg',
+  token: 'T1==cGFydG5lcl9pZD00NjE3MzI1MiZzaWc9YzdmZmM0NDAyZjE4NDk3MzE5Y2EzYWQzMDIzMjFlYWRiOTZlODMxNjpzZXNzaW9uX2lkPTJfTVg0ME5qRTNNekkxTW41LU1UVXpORGc0T1RNME1Ea3lOWDRyT1RWeE56ZEhRM2hGYTNkdmRFcE9SMlJvU2pOM2RHTi1mZyZjcmVhdGVfdGltZT0xNTM0ODg5MzQwJnJvbGU9cHVibGlzaGVyJm5vbmNlPTE1MzQ4ODkzNDAuOTc5OTEwNDAzNjkyNTU='
 };
 
 const MOCK_ROOM_2: Room = {
-  name: 'Mocked room name 2',
+  name: 'Захардкоженое имя комнаты 2',
   roomKey: 'mockedRoomKey2',
   apiKey: '46173252',
-  sessionId: '1_MX40NjE3MzI1Mn5-MTUzNDg1NzA2NTY5NH5WckNXeHpZQzl5T2x5NXluODhNdWtkUVN-fg',
-  token: 'T1==cGFydG5lcl9pZD00NjE3MzI1MiZzaWc9YzA4NzM5NmQ3N2FkNDllOTJlNDMzYzcxNjRlMmVhYzkwMjI1YWQ1YTpzZXNzaW9uX2lkPTFfTVg0ME5qRTNNekkxTW41LU1UVXpORGcxTnpBMk5UWTVOSDVXY2tOWGVIcFpRemw1VDJ4NU5YbHVPRGhOZFd0a1VWTi1mZyZjcmVhdGVfdGltZT0xNTM0ODU3MDY1JnJvbGU9cHVibGlzaGVyJm5vbmNlPTE1MzQ4NTcwNjUuNzQwODEzNTMyMTEyOTE='
+  sessionId: '1_MX40NjE3MzI1Mn5-MTUzNDg4OTM5NzgyNH5vTkVsWlJLc3BDaTUwdzNOUnl1QXltK05-fg',
+  token: 'T1==cGFydG5lcl9pZD00NjE3MzI1MiZzaWc9YWMwMjg1NzJjZWUxMGRlZWU5ZDNlY2M5ZWYyZWI2ZjM4OTQ2MWQ1NTpzZXNzaW9uX2lkPTFfTVg0ME5qRTNNekkxTW41LU1UVXpORGc0T1RNNU56Z3lOSDV2VGtWc1dsSkxjM0JEYVRVd2R6Tk9VbmwxUVhsdEswNS1mZyZjcmVhdGVfdGltZT0xNTM0ODg5Mzk3JnJvbGU9cHVibGlzaGVyJm5vbmNlPTE1MzQ4ODkzOTcuODY5NTIwNzkwMjE4NzQ='
 };
 
 @Injectable({
@@ -23,7 +23,7 @@ const MOCK_ROOM_2: Room = {
 })
 export class RoomService {
   createRoom(roomName: string) {
-    return of(MOCK_ROOM_1)
+    return of(MOCK_ROOM_1);
   }
 
   getRoomInfo(roomKey: string) {

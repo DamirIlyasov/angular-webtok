@@ -26,12 +26,23 @@ export class SubscriberComponent implements OnInit {
   isOffline = true;
   viewersCount = 0;
   room: Room;
+  inviteLink: string;
+  document = document;
+  inFullScreen = false;
 
   constructor(private opentokService: OpentokService, private changeDetector: ChangeDetectorRef,
               private store: Store<State>) {
   }
 
   ngOnInit(): void {
+    document.addEventListener('webkitfullscreenchange', () => {
+      this.inFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null);
+      // ||
+      // (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+      // (document.msFullscreenElement && document.msFullscreenElement !== null);
+    });
+    this.inviteLink = window.location.href;
     this.store.pipe(
       select(getRoom),
       distinctUntilChanged()
@@ -62,37 +73,35 @@ export class SubscriberComponent implements OnInit {
         }).catch(alert);
       }
     });
-    // this.session = this.opentokService.initSession()
-    // this.opentokService.initSession().then((session: OT.Session) => {
-    //   this.session = session;
-    //   this.session.on('sessionConnected', event => {
-    //     if (event.target['streams'].length() !== 0) {
-    //       this.subscribe(event.target['streams'].find());
-    //     }
-    //   });
-    //   this.session.on('connectionCreated', event => {
-    //     this.viewersCount++;
-    //   });
-    //   this.session.on('connectionDestroyed', event => {
-    //     this.viewersCount--;
-    //   });
-    //   // const subscriber =
-    // })
-    //   .then(() => this.opentokService.connect()
-    //     .then(() => {
-    //       this.session.on('streamCreated', event => {
-    //         this.subscribe(event.stream);
-    //       });
-    //       this.session.on('streamDestroyed', event => {
-    //         this.isOffline = true;
-    //         this.changeDetector.detectChanges();
-    //       });
-    //       this.changeDetector.detectChanges();
-    //     }))
-    //   .catch(err => {
-    //     console.error(err);
-    //     alert('Unable to connect.');
-    //   });
+  }
+
+  changeFullScreen() {
+    if (!this.inFullScreen) {
+      const elem = document.getElementsByClassName('subscriber').item(0);
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      }
+      // else if (elem.mozRequestFullScreen) { /* Firefox */
+      //   elem.mozRequestFullScreen();
+      // }
+      else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+      }
+      // else if (elem.msRequestFullscreen) { /* IE/Edge */
+      //   elem.msRequestFullscreen();
+      // }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      // else if (document.mozCancelFullScreen) {
+      //   document.mozCancelFullScreen();
+      // } else if (document.msExitFullscreen) {
+      //   document.msExitFullscreen();
+      // }
+    }
   }
 
   private subscribe(stream: OT.Stream) {
