@@ -3,6 +3,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { Room } from '../../core/model/room';
 
 const MOCK_ROOM_1: Room = {
+  name: 'Mocked room name 1',
   roomKey: 'mockedRoomKey1',
   apiKey: '46173252',
   sessionId: '2_MX40NjE3MzI1Mn5-MTUzNDcwNjE3NTAyM35vYm1TbVRsbE5XNG5KNlpCdWhodWRxbDR-fg',
@@ -10,6 +11,7 @@ const MOCK_ROOM_1: Room = {
 };
 
 const MOCK_ROOM_2: Room = {
+  name: 'Mocked room name 2',
   roomKey: 'mockedRoomKey2',
   apiKey: '46173252',
   sessionId: '2_MX40NjE3MzI1Mn5-MTUzNDcwNjIyOTQ0Mn51TEdsbm5UczhidEcydWVxam9vTmR3WmZ-fg',

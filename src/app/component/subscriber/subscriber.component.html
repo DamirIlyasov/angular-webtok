@@ -1,6 +1,6 @@
 <div #subscriberDiv class="subscriber"></div>
 <div *ngIf="isOffline" class="offline">
-  Stream is offline
+  Трансляция скоро начнётся
 </div>
 <div class="info">
   Viewers: {{viewersCount === -1? 0 : isOffline? viewersCount : viewersCount - 1}}
