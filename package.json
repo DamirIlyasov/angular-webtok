@@ -1,5 +1,5 @@
 {
-  "name": "angular-basic-video-chat",
+  "name": "angular-webtok",
   "description": "A basic video chat application using Angular.js 6 and OpenTok",
   "version": "0.0.0",
   "license": "",
@@ -14,6 +14,9 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "0.7.0",
+    "@angular/cli": "6.1.4",
+    "@angular/compiler-cli": "6.1.3",
     "@angular/animations": "6.1.3",
     "@angular/common": "6.1.3",
     "@angular/compiler": "6.1.3",
