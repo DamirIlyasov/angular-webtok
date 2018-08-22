@@ -73,7 +73,7 @@ export class PublisherComponent implements OnInit {
       this.room = room;
       this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
         insertMode: 'append',
-        resolution: '640x480', width: '100%',
+        resolution: '1280x960', width: '100%',
         height: '100%',
         name: room.name
       });
