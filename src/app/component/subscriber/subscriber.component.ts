@@ -6,6 +6,7 @@ import { State } from '../../app.reducers';
 import { RoomState } from '../../public/room/room.state';
 import { Room } from '../../core/model/room';
 import { distinctUntilChanged } from 'rxjs/operators';
+import * as HLS from 'hls.js';
 
 const getRoom = createSelector(
   (state: State) => state.room,
@@ -105,18 +106,34 @@ export class SubscriberComponent implements OnInit {
   }
 
   private subscribe(stream: OT.Stream) {
-    this.stream = stream;
-    this.subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%'
-    }, err => {
-      if (err) {
-        alert(err.message);
-      } else {
-        this.isOffline = false;
-        this.changeDetector.detectChanges();
-      }
-    });
+    let video = (document.getElementById('video') as HTMLVideoElement);
+    if(HLS.isSupported()) {
+      let hls = new HLS();
+      hls.loadSource('https://cdn-broadcast001-iad.tokbox.com/19170/19170_a6ce9c8b-5ef1-4cbc-8baa-608b43664bce.smil/playlist.m3u8');
+      hls.attachMedia(video);
+      hls.on(HLS.Events.MANIFEST_PARSED,function() {
+        video.play();
+      });
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = 'https://cdn-broadcast001-iad.tokbox.com/19170/19170_a6ce9c8b-5ef1-4cbc-8baa-608b43664bce.smil/playlist.m3u8';
+      video.addEventListener('loadedmetadata',function() {
+        video.play();
+      });
+    }
+    this.isOffline = false;
+    // this.stream = stream;
+    // this.subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {
+    //   insertMode: 'append',
+    //   width: '100%',
+    //   height: '100%'
+    // }, err => {
+    //   if (err) {
+    //     alert(err.message);
+    //   } else {
+    //     this.isOffline = false;
+    //     this.changeDetector.detectChanges();
+    //   }
+    // });
   }
 }

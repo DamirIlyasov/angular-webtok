@@ -1,5 +1,5 @@
 :host {
-
+  $monitor-width: calc(100%);
   height: 100%;
 
   .card.bg-light.publisher-container {
@@ -7,8 +7,10 @@
     height: 100%;
 
     .publisher {
+      display: flex;
+      justify-content: space-around;
       width: 100%;
-      height: 70%;
+      height: 100%;
     }
 
     .publisher.fullscreen {
@@ -34,22 +36,24 @@
     }
   }
 
-  .fullscreen-icon{
+  .fullscreen-icon {
     font-size: 20px;
-    z-index: 99;
+    z-index: 2;
     position: absolute;
-    color: black;
-    top: 66%;
+    color: white;
+    top: 65%;
     right: 10px;
   }
-  .fullscreen-icon.fullscreen{
-    z-index: 99;
-    position: absolute;
-    color: black;
-    top: 96%;
+  .fullscreen-icon.fullscreen {
+    top: 95%;
     right: 10px;
   }
 
+  .video-container {
+    text-align: right;
+    width: 100%;
+    height: 70%;
+  }
 }
 
 

@@ -27,7 +27,6 @@ export class PublisherComponent implements OnInit {
   inviteLink: string;
   room: Room;
   inFullScreen = false;
-
   constructor(private opentokService: OpentokService, private store: Store<State>) {
   }
 
@@ -73,7 +72,7 @@ export class PublisherComponent implements OnInit {
       this.room = room;
       this.publisher = OT.initPublisher(this.publisherDiv.nativeElement, {
         insertMode: 'append',
-        resolution: '1280x960', width: '100%',
+        resolution: '1280x720', width: '100%',
         height: '100%',
         name: room.name
       });

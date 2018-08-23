@@ -1,6 +1,7 @@
 <div class="card bg-light subscriber-container">
-  <div [class.display-none]="isOffline" #subscriberDiv class="subscriber"
-       [class.fullscreen]="inFullScreen">
+  <div class="video-container"  [class.display-none]="isOffline">
+    <video id="video" class="subscriber">
+    </video>
     <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
        (click)="changeFullScreen()"></p>
   </div>
@@ -20,4 +21,3 @@
     </div>
   </div>
 </div>
-

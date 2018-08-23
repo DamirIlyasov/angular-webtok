@@ -1,7 +1,9 @@
 <div class="card bg-light publisher-container">
-  <div [class.publishing]="publishing" [class.fullscreen]="inFullScreen" #publisherDiv class="publisher">
-    <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
-       (click)="changeFullScreen()"></p>
+  <div class="video-container">
+    <div [class.publishing]="publishing" [class.fullscreen]="inFullScreen" #publisherDiv class="publisher">
+      <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
+         (click)="changeFullScreen()"></p>
+    </div>
   </div>
   <div class="container">
     <div class="row">
