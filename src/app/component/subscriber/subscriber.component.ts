@@ -120,6 +120,8 @@ export class SubscriberComponent implements OnInit {
       video.addEventListener('loadedmetadata',function() {
         video.play();
       });
+    } else {
+      alert('Ошибка при запуске hls')
     }
     this.isOffline = false;
     // this.stream = stream;
