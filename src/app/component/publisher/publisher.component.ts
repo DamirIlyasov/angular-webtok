@@ -27,6 +27,7 @@ export class PublisherComponent implements OnInit {
   inviteLink: string;
   room: Room;
   inFullScreen = false;
+
   constructor(private opentokService: OpentokService, private store: Store<State>) {
   }
 
@@ -89,7 +90,7 @@ export class PublisherComponent implements OnInit {
       this.session.on('connectionDestroyed', event => {
         this.viewersCount--;
       });
-      this.opentokService.connect(this.session, room.token).catch(alert);
+      this.opentokService.connect(this.session, room.token).catch(err => alert(err.message));
     });
 
     this.inviteLink = window.location.href;

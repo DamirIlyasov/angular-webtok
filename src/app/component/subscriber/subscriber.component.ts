@@ -106,17 +106,18 @@ export class SubscriberComponent implements OnInit {
   }
 
   private subscribe(stream: OT.Stream) {
+    const hlsUrl = 'https://cdn-broadcast001-dub.tokbox.com/29425/29425_0c90e78b-a5db-44b1-aac0-ed406a33474d.smil/playlist.m3u8';
     let video = (document.getElementById('video') as HTMLVideoElement);
     if(HLS.isSupported()) {
       let hls = new HLS();
-      hls.loadSource('https://cdn-broadcast001-iad.tokbox.com/19170/19170_a6ce9c8b-5ef1-4cbc-8baa-608b43664bce.smil/playlist.m3u8');
+      hls.loadSource(hlsUrl);
       hls.attachMedia(video);
       hls.on(HLS.Events.MANIFEST_PARSED,function() {
         video.play();
       });
     }
     else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = 'https://cdn-broadcast001-iad.tokbox.com/19170/19170_a6ce9c8b-5ef1-4cbc-8baa-608b43664bce.smil/playlist.m3u8';
+      video.src = hlsUrl;
       video.addEventListener('loadedmetadata',function() {
         video.play();
       });
