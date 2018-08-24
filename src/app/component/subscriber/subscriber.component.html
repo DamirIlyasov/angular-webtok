@@ -1,11 +1,11 @@
 <div class="card bg-light subscriber-container">
   <div class="video-container"  [class.display-none]="isOffline">
-    <video id="video" class="subscriber">
+    <video id="video" class="subscriber" autoplay="autoplay" scr="https://cdn-broadcast001-dub.tokbox.com/29440/29440_afb2f83a-7bd9-4072-ad13-2d9b95891bec.smil/playlist.m3u8">
     </video>
-    <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
-       (click)="changeFullScreen()"></p>
+    <!--<p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"-->
+       <!--(click)="changeFullScreen()"></p>-->
   </div>
-  <div *ngIf="isOffline" class="offline">
+  <div *ngIf="isOffline" class="offline"  >
     <p>Трансляция скоро начнётся</p>
   </div>
   <div class="container">

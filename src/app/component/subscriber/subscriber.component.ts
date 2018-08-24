@@ -6,7 +6,6 @@ import { State } from '../../app.reducers';
 import { RoomState } from '../../public/room/room.state';
 import { Room } from '../../core/model/room';
 import { distinctUntilChanged } from 'rxjs/operators';
-import * as HLS from 'hls.js';
 
 const getRoom = createSelector(
   (state: State) => state.room,
@@ -106,37 +105,34 @@ export class SubscriberComponent implements OnInit {
   }
 
   private subscribe(stream: OT.Stream) {
-    const hlsUrl = 'https://cdn-broadcast001-dub.tokbox.com/29425/29425_0c90e78b-a5db-44b1-aac0-ed406a33474d.smil/playlist.m3u8';
+    const hlsUrl = 'https://cdn-broadcast001-dub.tokbox.com/29440/29440_afb2f83a-7bd9-4072-ad13-2d9b95891bec.smil/playlist.m3u8';
     let video = (document.getElementById('video') as HTMLVideoElement);
-    if(HLS.isSupported()) {
-      let hls = new HLS();
-      hls.loadSource(hlsUrl);
-      hls.attachMedia(video);
-      hls.on(HLS.Events.MANIFEST_PARSED,function() {
-        video.play();
-      });
-    }
-    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    console.log(video);
+
+    if (video.canPlayType('application/vnd.apple.mpegURL')) {
+      this.isOffline = false;
       video.src = hlsUrl;
-      video.addEventListener('loadedmetadata',function() {
-        video.play();
-      });
-    } else {
-      alert('Ошибка при запуске hls')
+      video.onloadedmetadata = () => video.play();
+
+      // video.addEventListener('loadedmetadata', function() {
+      //   video.play();
+      // });
     }
-    this.isOffline = false;
-    // this.stream = stream;
-    // this.subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, {
-    //   insertMode: 'append',
-    //   width: '100%',
-    //   height: '100%'
-    // }, err => {
-    //   if (err) {
-    //     alert(err.message);
-    //   } else {
-    //     this.isOffline = false;
-    //     this.changeDetector.detectChanges();
-    //   }
-    // });
+    // if (HLS.isSupported()) {
+    //   let hls = new HLS();
+    //   hls.loadSource(hlsUrl);
+    //   hls.attachMedia(video);
+    //   hls.on(HLS.Events.MANIFEST_PARSED, function() {
+    //     video.play();
+    //   });
+    // }
+    // else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    //   video.src = hlsUrl;
+    //   video.addEventListener('loadedmetadata', function() {
+    //     video.play();
+    //   });
+    // } else {
+    //   alert('Ошибка при запуске hls');
+    // }
   }
 }
