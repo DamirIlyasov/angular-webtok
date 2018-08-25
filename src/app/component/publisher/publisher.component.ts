@@ -72,7 +72,9 @@ export class PublisherComponent implements OnInit {
         insertMode: 'append',
         resolution: '1280x720', width: '100%',
         height: '100%',
-        name: room.name
+        name: room.name,
+        publishAudio: true,
+        publishVideo: true
       });
       this.publisher.on('streamDestroyed', event => {
         event.preventDefault();
