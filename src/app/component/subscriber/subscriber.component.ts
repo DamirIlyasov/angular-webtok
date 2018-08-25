@@ -92,7 +92,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   private subscribe(stream: OT.Stream) {
-    const hlsUrl = 'https://cdn-broadcast001-pdx.tokbox.com/10184/10184_c1e71f93-4588-4abd-b62f-45b0a2f2a7c8.smil/playlist.m3u8';
+    const hlsUrl = 'https://cdn-broadcast001-pdx.tokbox.com/10186/10186_53dec7ab-caca-4f37-ab9b-23b8dd361f83.smil/playlist.m3u8';
     const video = (document.getElementById('video') as HTMLVideoElement);
 
     // not safari
