@@ -108,8 +108,6 @@ export class SubscriberComponent implements OnInit {
       this.isOffline = false;
       this.isSafari = true;
       video.src = hlsUrl;
-      video.autoplay = true;
-      console.log(video);
     }
   }
 }

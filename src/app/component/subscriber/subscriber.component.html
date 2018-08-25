@@ -1,6 +1,6 @@
 <div class="card bg-light subscriber-container">
   <div class="video-container"  [class.display-none]="isOffline">
-    <video id="video" class="subscriber"></video>
+    <video id="video" class="subscriber" autoplay="autoplay"></video>
     <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
        (click)="changeFullScreen()" *ngIf="!isSafari"></p>
   </div>
