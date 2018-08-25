@@ -62,9 +62,6 @@ export class PublisherComponent implements OnInit {
     document.addEventListener('webkitfullscreenchange', () => {
       this.inFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
         (document.webkitFullscreenElement && document.webkitFullscreenElement !== null);
-      // ||
-      // (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
-      // (document.msFullscreenElement && document.msFullscreenElement !== null);
     });
     this.store.pipe(
       select(getRoom),
@@ -101,27 +98,15 @@ export class PublisherComponent implements OnInit {
       const elem = document.getElementsByClassName('publisher').item(0);
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
-      }
-      // else if (elem.mozRequestFullScreen) { /* Firefox */
-      //   elem.mozRequestFullScreen();
-      // }
-      else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
         elem.webkitRequestFullscreen();
       }
-      // else if (elem.msRequestFullscreen) { /* IE/Edge */
-      //   elem.msRequestFullscreen();
-      // }
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
       }
-      // else if (document.mozCancelFullScreen) {
-      //   document.mozCancelFullScreen();
-      // } else if (document.msExitFullscreen) {
-      //   document.msExitFullscreen();
-      // }
     }
   }
 }

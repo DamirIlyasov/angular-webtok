@@ -6,6 +6,7 @@ import { State } from '../../app.reducers';
 import { RoomState } from '../../public/room/room.state';
 import { Room } from '../../core/model/room';
 import { distinctUntilChanged } from 'rxjs/operators';
+import * as HLS from 'hls.js';
 
 const getRoom = createSelector(
   (state: State) => state.room,
@@ -29,6 +30,7 @@ export class SubscriberComponent implements OnInit {
   inviteLink: string;
   document = document;
   inFullScreen = false;
+  isSafari = false;
 
   constructor(private opentokService: OpentokService, private changeDetector: ChangeDetectorRef,
               private store: Store<State>) {
@@ -80,52 +82,40 @@ export class SubscriberComponent implements OnInit {
       const elem = document.getElementsByClassName('subscriber').item(0);
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
-      }
-      // else if (elem.mozRequestFullScreen) { /* Firefox */
-      //   elem.mozRequestFullScreen();
-      // }
-      else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
         elem.webkitRequestFullscreen();
       }
-      // else if (elem.msRequestFullscreen) { /* IE/Edge */
-      //   elem.msRequestFullscreen();
-      // }
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
       }
-      // else if (document.mozCancelFullScreen) {
-      //   document.mozCancelFullScreen();
-      // } else if (document.msExitFullscreen) {
-      //   document.msExitFullscreen();
-      // }
     }
   }
 
   private subscribe(stream: OT.Stream) {
-    const hlsUrl = 'https://cdn-broadcast001-dub.tokbox.com/29440/29440_afb2f83a-7bd9-4072-ad13-2d9b95891bec.smil/playlist.m3u8';
-    let video = (document.getElementById('video') as HTMLVideoElement);
-    console.log(video);
+    const hlsUrl = 'https://cdn-broadcast001-pdx.tokbox.com/10184/10184_c1e71f93-4588-4abd-b62f-45b0a2f2a7c8.smil/playlist.m3u8';
+    const video = (document.getElementById('video') as HTMLVideoElement);
 
+    // not safari
+    if (HLS.isSupported()) {
+      const hls = new HLS();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+      hls.on(HLS.Events.MANIFEST_PARSED, () => video.play());
+      this.isOffline = false;
+    } else
+    // safari
     if (video.canPlayType('application/vnd.apple.mpegURL')) {
       this.isOffline = false;
+      this.isSafari = true;
       video.src = hlsUrl;
-      video.onloadedmetadata = () => video.play();
-
+      video.autoplay = true;
       // video.addEventListener('loadedmetadata', function() {
       //   video.play();
       // });
     }
-    // if (HLS.isSupported()) {
-    //   let hls = new HLS();
-    //   hls.loadSource(hlsUrl);
-    //   hls.attachMedia(video);
-    //   hls.on(HLS.Events.MANIFEST_PARSED, function() {
-    //     video.play();
-    //   });
-    // }
     // else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     //   video.src = hlsUrl;
     //   video.addEventListener('loadedmetadata', function() {
