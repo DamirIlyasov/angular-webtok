@@ -40,9 +40,6 @@ export class SubscriberComponent implements OnInit {
     document.addEventListener('webkitfullscreenchange', () => {
       this.inFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
         (document.webkitFullscreenElement && document.webkitFullscreenElement !== null);
-      // ||
-      // (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
-      // (document.msFullscreenElement && document.msFullscreenElement !== null);
     });
     this.inviteLink = window.location.href;
     this.store.pipe(
@@ -112,17 +109,7 @@ export class SubscriberComponent implements OnInit {
       this.isSafari = true;
       video.src = hlsUrl;
       video.autoplay = true;
-      // video.addEventListener('loadedmetadata', function() {
-      //   video.play();
-      // });
+      console.log(video);
     }
-    // else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    //   video.src = hlsUrl;
-    //   video.addEventListener('loadedmetadata', function() {
-    //     video.play();
-    //   });
-    // } else {
-    //   alert('Ошибка при запуске hls');
-    // }
   }
 }
