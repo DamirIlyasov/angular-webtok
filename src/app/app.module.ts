@@ -11,11 +11,9 @@ import {
   DASHBOARD_COMPONENT_ROUTER_PATH,
   LOGIN_COMPONENT_ROUTER_PATH,
   PUBLIC_COMPONENT_ROUTER_PATH,
-  REGISTRATION_COMPONENT_ROUTER_PATH,
   ROOM_COMPONENT_ROUTER_PATH
 } from './app.routes';
 import { LoginComponent } from './public/login/login.component';
-import { RegistrationComponent } from './public/registration/registration.component';
 import { RoomComponent } from './public/room/room.component';
 import { DashboardComponent } from './authorized/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
@@ -34,7 +32,6 @@ const ROUTES: Routes = [
     component: PublicComponent,
     children: [
       {path: LOGIN_COMPONENT_ROUTER_PATH, component: LoginComponent},
-      {path: REGISTRATION_COMPONENT_ROUTER_PATH, component: RegistrationComponent},
       {path: ROOM_COMPONENT_ROUTER_PATH, component: RoomComponent}
     ]
   },
@@ -51,7 +48,6 @@ const ROUTES: Routes = [
     SubscriberComponent,
     PublicComponent,
     LoginComponent,
-    RegistrationComponent,
     RoomComponent,
     DashboardComponent
   ],
