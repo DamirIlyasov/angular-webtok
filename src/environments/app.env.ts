@@ -1,1 +1,1 @@
-export const API_URL = 'http://www.video.zoomclass.ru';
+export const API_URL = 'https://www.video.zoomclass.ru';
