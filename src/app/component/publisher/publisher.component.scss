@@ -2,9 +2,10 @@
   $monitor-width: calc(100%);
   height: 100%;
 
-  .card.bg-light.publisher-container {
+  .card.publisher-container {
     width: 100%;
     height: 100%;
+    border: none;
 
     .publisher {
       display: flex;
@@ -25,10 +26,6 @@
 
     .col-3 {
       padding-left: 6px;
-    }
-
-    .invite {
-      margin-top: 25px;
     }
 
     .viewers, .status {

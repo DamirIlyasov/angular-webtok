@@ -1,24 +1,58 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs/internal/observable/of';
-import { Room } from '../../core/model/room';
+import { Room, StreamUrlResponse, Subscriber, SubscribersResponse } from '../../core/model/room';
+import { API_URL } from '../../../environments/app.env';
+import {
+  CREATE_ROOM_PATH,
+  GET_STREAM_URL_PATH,
+  START_BROADCAST_PATH,
+  STOP_BROADCAST_PATH,
+  SUBSCRIBERS_PATH
+} from '../../../environments/api-path-env';
+import { HttpClient } from '@angular/common/http';
 
-const MOCK_ROOM_1: Room = {
-  name: 'Захардкоженое имя комнаты 1',
-  roomKey: 'mockedRoomKey1',
-  apiKey: '46099812',
-  sessionId: '1_MX40NjA5OTgxMn5udWxsfjE1MzUzMTUzNTQ0MTJ-UHVMakdFVndNSE5WamdLSyt3RnZCV1o1fn4',
-  token: 'T1==cGFydG5lcl9pZD00NjA5OTgxMiZzZGtfdmVyc2lvbj1kZWJ1Z2dlciZzaWc9ZjM5Y2ZkZTk5Mzg0NzAyNDY3Mjk0YmZjYzI0YTBhYmVmZmM2YTIwMDpzZXNzaW9uX2lkPTFfTVg0ME5qQTVPVGd4TW41dWRXeHNmakUxTXpVek1UVXpOVFEwTVRKLVVIVk1ha2RGVm5kTlNFNVdhbWRMU3l0M1JuWkNWMW8xZm40JmNyZWF0ZV90aW1lPTE1MzUzMTUzNTQmcm9sZT1tb2RlcmF0b3Imbm9uY2U9MTUzNTMxNTM1NC40MzQxMzUyMTA4ODg1JmV4cGlyZV90aW1lPTE1Mzc5MDczNTQ='
-};
+const CREATE_ROOM_URL = API_URL + CREATE_ROOM_PATH;
+const GET_STREAM_URL = API_URL + GET_STREAM_URL_PATH;
+const START_BROADCAST_URL = API_URL + START_BROADCAST_PATH;
+const STOP_BROADCAST_URL = API_URL + STOP_BROADCAST_PATH;
+const SUBSCRIBERS_URL = API_URL + SUBSCRIBERS_PATH;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-  createRoom(roomName: string) {
-    return of(MOCK_ROOM_1);
+
+  constructor(private http: HttpClient) {
   }
 
-  getRoomInfo(roomKey: string) {
-    return of(MOCK_ROOM_1);
+  createRoom(roomName: string) {
+    return this.http.post<Room>(CREATE_ROOM_URL, {title: roomName});
+  }
+
+  getRoomInfo(roomId: string) {
+    return this.http.get<Room>(CREATE_ROOM_URL + roomId);
+  }
+
+  getStreamUrl(roomId: string) {
+    return this.http.get<StreamUrlResponse>(GET_STREAM_URL + roomId);
+  }
+
+  startBroadcast(roomId: string) {
+    return this.http.post(START_BROADCAST_URL + roomId, null);
+  }
+
+  stopBroadcast(roomId: string) {
+    return this.http.post(STOP_BROADCAST_URL + roomId, null);
+  }
+
+  getSubscribers(roomId: string) {
+    return this.http.get<Subscriber[]>(SUBSCRIBERS_URL + roomId);
+  }
+
+  addSubscriber(roomId: string) {
+    return this.http.post(SUBSCRIBERS_URL + roomId, null);
+  }
+
+  deleteSubscriber(roomId: string) {
+    return this.http.delete(SUBSCRIBERS_URL + roomId);
   }
 }

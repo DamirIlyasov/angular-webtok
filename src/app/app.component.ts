@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LOGIN_COMPONENT_ROUTER_PATH } from './app.routes';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { State } from './app.reducers';
+import { GetUserInfoAction } from './core/state/user.actions';
 
 @ Component({
   selector: 'app-root',
@@ -9,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store<State>) {
 
   }
 
@@ -17,5 +20,6 @@ export class AppComponent implements OnInit {
     if (window.location.pathname === '/') {
       this.router.navigate([LOGIN_COMPONENT_ROUTER_PATH]);
     }
+    this.store.dispatch(new GetUserInfoAction());
   }
 }

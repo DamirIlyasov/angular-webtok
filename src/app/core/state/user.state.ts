@@ -3,11 +3,7 @@ import { Role } from '../model/role';
 
 export class UserState {
   static readonly default: UserState = Object.seal({
-    user: {
-      email: null,
-      login: null,
-      role: Role.NOT_SELECTED
-    },
+    user: null,
     loading: false,
     error: null,
     errorUpdated: null

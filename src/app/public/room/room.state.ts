@@ -1,20 +1,20 @@
-import { Room } from '../../core/model/room';
+import { Room, Subscriber } from '../../core/model/room';
 
 export class RoomState {
   static readonly defaul: RoomState = Object.seal({
-    room: {
-      name: null,
-      roomKey: null,
-      apiKey: null,
-      token: null,
-      sessionId: null
-    },
+    room: null,
     loading: false,
     error: null,
-    errorUpdated: null
+    errorUpdated: null,
+    streamUrl: '',
+    broadcastOnline: false,
+    subscribers: []
   });
   room: Room;
+  streamUrl: string;
   loading: boolean;
   error: string;
   errorUpdated: number;
+  broadcastOnline: boolean;
+  subscribers: Subscriber[];
 }

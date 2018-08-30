@@ -25,6 +25,8 @@ import { UserEffects } from './core/effects/user.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RoomEffects } from './public/room/room.effects';
 import { ClipboardModule } from 'ngx-clipboard';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './core/interceptor/token-interceptor';
 
 const ROUTES: Routes = [
   {
@@ -41,6 +43,14 @@ const ROUTES: Routes = [
   }
 ];
 
+const INTERCEPTORS = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +63,7 @@ const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ClipboardModule,
     RouterModule.forRoot(ROUTES),
@@ -71,6 +82,7 @@ const ROUTES: Routes = [
       stateKey: 'router'
     })
   ],
+  providers: [INTERCEPTORS],
   bootstrap: [AppComponent]
 })
 export class AppModule {

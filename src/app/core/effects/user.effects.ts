@@ -5,15 +5,16 @@ import {
   AuthenticateAction,
   AuthenticateErrorAction,
   AuthenticateSuccessAction,
-  RegistrateAction,
-  RegistrateErrorAction,
-  RegistrateSuccessAction
+  GetUserInfoAction,
+  GetUserInfoErrorAction,
+  GetUserInfoSuccessAction
 } from '../state/user.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../service/user.service';
 import { of } from 'rxjs/internal/observable/of';
 import { Router } from '@angular/router';
-import { DASHBOARD_COMPONENT_ROUTER_PATH } from '../../app.routes';
+import { StorageService } from '../service/storage.service';
+import { DASHBOARD_COMPONENT_ROUTER_PATH, LOGIN_COMPONENT_ROUTER_PATH } from '../../app.routes';
 
 @Injectable()
 export class UserEffects {
@@ -22,26 +23,50 @@ export class UserEffects {
   authenticate = this.actions.pipe(
     ofType(ActionTypes.AUTHENTICATE),
     switchMap((action: AuthenticateAction) => this.userService.login(action.payload).pipe(
-      map(user => new AuthenticateSuccessAction(user)),
+      map(response => {
+        this.storageService.setAuth(response);
+        return new AuthenticateSuccessAction();
+      }),
       catchError(() => of(new AuthenticateErrorAction()))
     ))
   );
 
-  @Effect({dispatch: false})
+  @Effect()
   authenticateSuccess = this.actions.pipe(
-    ofType(ActionTypes.AUTHENTICATE_SUCCESS, ActionTypes.REGISTRATE_SUCCESS),
-    map(() => this.router.navigate([`/${DASHBOARD_COMPONENT_ROUTER_PATH}`]))
+    ofType(ActionTypes.AUTHENTICATE_SUCCESS),
+    map(() => new GetUserInfoAction())
   );
 
   @Effect()
-  registration = this.actions.pipe(
-    ofType(ActionTypes.REGISTRATE),
-    switchMap((action: RegistrateAction) => this.userService.registrate(action.payload).pipe(
-      map(user => new RegistrateSuccessAction(user)),
-      catchError(() => of(new RegistrateErrorAction()))
+  getUserInfo = this.actions.pipe(
+    ofType(ActionTypes.GET_USER_INFO),
+    switchMap(() => this.userService.getUserInfo().pipe(
+      map(user => new GetUserInfoSuccessAction(user)),
+      catchError(() => of(new GetUserInfoErrorAction()))
     ))
   );
 
-  constructor(private actions: Actions, private userService: UserService, private router: Router) {
+  @Effect({dispatch: false})
+  getUserInfoSuccess = this.actions.pipe(
+    ofType(ActionTypes.GET_USER_INFO_SUCCESS),
+    map(() => {
+      if (this.router.url.startsWith(`/${LOGIN_COMPONENT_ROUTER_PATH}`)) {
+        this.router.navigate([`/${DASHBOARD_COMPONENT_ROUTER_PATH}`]);
+      }
+    })
+  );
+
+  @Effect({dispatch: false})
+  getUserInfoError = this.actions.pipe(
+    ofType(ActionTypes.GET_USER_INFO_ERROR),
+    map(() => {
+      if (this.router.url.startsWith(`/${DASHBOARD_COMPONENT_ROUTER_PATH}`)) {
+        this.router.navigate([`/${LOGIN_COMPONENT_ROUTER_PATH}`]);
+      }
+    })
+  );
+
+  constructor(private actions: Actions, private userService: UserService, private router: Router,
+              private storageService: StorageService) {
   }
 }

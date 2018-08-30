@@ -1,30 +1,7 @@
-<!--<div *ngIf="showInputName">-->
-  <!--<div class="container">-->
-    <!--<div class="card bg-light">-->
-      <!--<article class="card-body mx-auto">-->
-        <!--<h4 class="card-title mt-3 text-center">Введите Ваше имя</h4>-->
-        <!--<form>-->
-          <!--<div class="form-group input-group">-->
-            <!--<div class="input-group-prepend">-->
-              <!--<span class="input-group-text"> <i class="fa fa-user"></i> </span>-->
-            <!--</div>-->
-            <!--<input [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}" name="" class="form-control"-->
-                   <!--placeholder="Ваше имя" type="text">-->
-          <!--</div> &lt;!&ndash; form-group// &ndash;&gt;-->
-          <!--<div class="form-group">-->
-            <!--<button type="submit" class="btn btn-primary btn-block" (click)="submitName()" [disabled]="!user.login">-->
-              <!--Войти-->
-            <!--</button>-->
-          <!--</div> &lt;!&ndash; form-group// &ndash;&gt;-->
-        <!--</form>-->
-      <!--</article>-->
-    <!--</div> &lt;!&ndash; card.// &ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
-
-<app-login></app-login>
-
-<div *ngIf="!showInputName" class="main">
-  <app-publisher *ngIf="user.role === ROLE.PUBLISHER"></app-publisher>
-  <app-subscriber *ngIf="user.role !== ROLE.PUBLISHER && !showInputName"></app-subscriber>
+<app-login *ngIf="!user"></app-login>
+<div class="main" *ngIf="user">
+  <app-publisher [room]="room | async"
+                 *ngIf="(user && (room | async) && user.pk === (room | async).host.id)"></app-publisher>
+  <app-subscriber [room]="room | async"
+                  *ngIf="(user && (room | async) && user.pk !== (room | async).host.id)"></app-subscriber>
 </div>

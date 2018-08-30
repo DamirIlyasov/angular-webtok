@@ -1,17 +1,30 @@
 import { Action } from '@ngrx/store';
 import { User } from '../model/user';
-import { AuthRequest } from '../model/auth-request';
-import { RegistrateRequest } from '../model/registrate-request';
-import { Room } from '../model/room';
+import { AuthRequest } from '../model/auth';
 
 export const ActionTypes = {
   AUTHENTICATE: '[user] Authenticate',
   AUTHENTICATE_SUCCESS: '[user] Authenticate success',
   AUTHENTICATE_ERROR: '[user] Authenticate error',
-  REGISTRATE: '[user] Registration',
-  REGISTRATE_SUCCESS: '[user] Registrate success',
-  REGISTRATE_ERROR: '[user] Registrate error',
+  GET_USER_INFO: '[user] get user info',
+  GET_USER_INFO_SUCCESS: '[user] get user info success',
+  GET_USER_INFO_ERROR: '[user] get user info error'
 };
+
+export class GetUserInfoAction implements Action {
+  type = ActionTypes.GET_USER_INFO;
+}
+
+export class GetUserInfoSuccessAction implements Action {
+  type = ActionTypes.GET_USER_INFO_SUCCESS;
+
+  constructor(public payload: User) {
+  }
+}
+
+export class GetUserInfoErrorAction implements Action {
+  type = ActionTypes.GET_USER_INFO_ERROR;
+}
 
 export class AuthenticateAction implements Action {
   type = ActionTypes.AUTHENTICATE;
@@ -22,36 +35,15 @@ export class AuthenticateAction implements Action {
 
 export class AuthenticateSuccessAction implements Action {
   type = ActionTypes.AUTHENTICATE_SUCCESS;
-
-  constructor(public payload: User) {
-  }
 }
 
 export class AuthenticateErrorAction implements Action {
   type = ActionTypes.AUTHENTICATE_ERROR;
 }
 
-export class RegistrateAction implements Action {
-  type = ActionTypes.REGISTRATE;
-
-  constructor(public payload: RegistrateRequest) {
-  }
-}
-
-export class RegistrateSuccessAction implements Action {
-  type = ActionTypes.REGISTRATE_SUCCESS;
-
-  constructor(public payload: User) {
-  }
-}
-
-export class RegistrateErrorAction implements Action {
-  type = ActionTypes.REGISTRATE_ERROR;
-}
-
 export type Actions = AuthenticateAction
   | AuthenticateSuccessAction
   | AuthenticateErrorAction
-  | RegistrateAction
-  | RegistrateErrorAction
-  | RegistrateSuccessAction;
+  | GetUserInfoAction
+  | GetUserInfoErrorAction
+  | GetUserInfoSuccessAction;

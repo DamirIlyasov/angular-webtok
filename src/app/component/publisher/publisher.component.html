@@ -1,4 +1,4 @@
-<div class="card bg-light publisher-container">
+<div class="card publisher-container">
   <div class="video-container">
     <div [class.publishing]="publishing" [class.fullscreen]="inFullScreen" #publisherDiv class="publisher">
       <p class="glyphicon glyphicon-fullscreen fullscreen-icon" [class.fullscreen]="inFullScreen"
@@ -22,14 +22,24 @@
         'Не в сети'}}</p>
     </div>
     <div class="row invite align-bottom">
-      <span id="invite-link" class="offset-1 offset-sm-1 offset-lg-1 offset-xl-1 offset-md-1">Пригласительная ссылка</span>
+      <span id="invite-link"
+            class="offset-1 offset-sm-1 offset-lg-1 offset-xl-1 offset-md-1">Пригласительная ссылка</span>
     </div>
     <div class="row">
-      <input class="col-6 col-sm-6 col-lg-6 col-xl-6 col-md-6 offset-1 offset-sm-1 offset-lg-1 offset-xl-1 offset-md-1" [value]="inviteLink" type="text">
+      <input class="col-6 col-sm-6 col-lg-6 col-xl-6 col-md-6 offset-1 offset-sm-1 offset-lg-1 offset-xl-1 offset-md-1"
+             [value]="inviteLink" type="text">
       <button class="btn btn-info col-4 col-sm-4 col-lg-4 col-xl-4 col-md-4" ngxClipboard [cbContent]="inviteLink">
         Скопировать
       </button>
     </div>
   </div>
+  <div class="offset-1 viewers">
+    <strong>Зрители:</strong>
+    <table class="table">
+      <tr *ngFor="let subscriber of (subscribers | async)">{{subscriber.user.username}}</tr>
+      <tr *ngIf="(subscribers | async)?.length === 0">Зрителей нет</tr>
+    </table>
+  </div>
+
 </div>
 

@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthRequest } from '../../core/model/auth-request';
-import { Store } from '@ngrx/store';
+import { AuthRequest } from '../../core/model/auth';
+import { createSelector, select, Store } from '@ngrx/store';
 import { State } from '../../app.reducers';
 import { AuthenticateAction } from '../../core/state/user.actions';
+import { UserState } from '../../core/state/user.state';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+const getAuthError = createSelector(
+  (state: State) => state.user,
+  (state: UserState) => state.error
+);
 
 @Component({
   selector: 'app-login',
@@ -11,6 +18,7 @@ import { AuthenticateAction } from '../../core/state/user.actions';
 })
 export class LoginComponent {
   request = new AuthRequest();
+  authError = this.store.pipe(select(getAuthError), distinctUntilChanged());
 
   constructor(private store: Store<State>) {
   }
