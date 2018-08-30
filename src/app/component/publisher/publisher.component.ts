@@ -4,10 +4,15 @@ import * as OT from '@opentok/client';
 import { createSelector, select, Store } from '@ngrx/store';
 import { State } from '../../app.reducers';
 import { Room } from '../../core/model/room';
-import { GetSubscribersAction, StartBroadcastAction, StopBroadcastAction } from '../../public/room/room.actions';
+import {
+  ActionTypes,
+  GetSubscribersAction,
+  StartBroadcastAction,
+  StopBroadcastAction
+} from '../../public/room/room.actions';
 import { RoomState } from '../../public/room/room.state';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { RoomService } from '../../public/room/room.service';
+import { Actions, ofType } from '@ngrx/effects';
 
 const getBroadcastOnline = createSelector(
   (state: State) => state.room,
@@ -37,22 +42,20 @@ export class PublisherComponent implements OnInit {
   inFullScreen = false;
   subscribers = this.store.pipe(select(getSubscribers), distinctUntilChanged());
 
-  constructor(private opentokService: OpentokService, private store: Store<State>, private roomService: RoomService) {
+  constructor(private opentokService: OpentokService, private store: Store<State>, private actions: Actions) {
   }
 
   publish() {
     if (this.isAvailableToPublish()) {
       this.store.dispatch(new StartBroadcastAction({roomId: this.room.id}));
-      this.store.pipe(select(getBroadcastOnline), distinctUntilChanged()).subscribe(broadcastOnline => {
-        if (broadcastOnline) {
-          this.session.publish(this.publisher, err => {
-            if (err) {
-              alert(err.message);
-            } else {
-              this.publishing = true;
-            }
-          });
-        }
+      this.actions.pipe(ofType(ActionTypes.BROADCAST_START_SUCCESS)).subscribe(() => {
+        this.session.publish(this.publisher, err => {
+          if (err) {
+            alert(err.message);
+          } else {
+            this.publishing = true;
+          }
+        });
       });
     }
   }
@@ -60,11 +63,9 @@ export class PublisherComponent implements OnInit {
   unpublish() {
     if (this.isAvailableToUnpublish()) {
       this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
-      this.store.pipe(select(getBroadcastOnline), distinctUntilChanged()).subscribe(broadcastOnline => {
-        if (!broadcastOnline) {
-          this.session.unpublish(this.publisher);
-          this.publishing = false;
-        }
+      this.actions.pipe(ofType(ActionTypes.BROADCAST_STOP_SUCCESS)).subscribe(() => {
+        this.session.unpublish(this.publisher);
+        this.publishing = false;
       });
     }
   }

@@ -79,7 +79,7 @@ export class RoomEffects {
 
   @Effect()
   stopBroadcast = this.actions.pipe(
-    ofType(ActionTypes.BROADCAST_START),
+    ofType(ActionTypes.BROADCAST_STOP),
     switchMap((action: StopBroadcastAction) => this.roomService.stopBroadcast(action.payload.roomId).pipe(
       map(() => new StopBroadcastSuccessAction()),
       catchError(() => of(new StopBroadcastErrorAction()))
