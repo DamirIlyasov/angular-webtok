@@ -63,9 +63,11 @@ export class SubscriberComponent implements OnInit {
       });
       this.session.on('connectionCreated', event => {
         this.viewersCount++;
+        this.changeDetector.detectChanges();
       });
       this.session.on('connectionDestroyed', event => {
-        this.viewersCount--;
+        this.viewersCount++;
+        this.changeDetector.detectChanges();
       });
       this.opentokService.connect(this.session, this.room.token).then(() => {
         this.session.on('streamCreated', event => {
