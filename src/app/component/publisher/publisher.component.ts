@@ -52,12 +52,12 @@ export class PublisherComponent implements OnInit {
   //   this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
   // }
 
-  @HostListener('window:unload', [ '$event' ])
+  @HostListener('window:unload', ['$event'])
   unloadHandler(event) {
     this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
   }
 
-  @HostListener('window:beforeunload', [ '$event' ])
+  @HostListener('window:beforeunload', ['$event'])
   beforeUnloadHander(event) {
     this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
   }

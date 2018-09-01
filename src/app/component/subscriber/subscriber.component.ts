@@ -5,7 +5,13 @@ import { createSelector, select, Store } from '@ngrx/store';
 import { State } from '../../app.reducers';
 import { Room } from '../../core/model/room';
 import * as HLS from 'hls.js';
-import { ActionTypes, GetStreamUrlAction, SubscribeAction, UnsubscribeAction } from '../../public/room/room.actions';
+import {
+  ActionTypes,
+  GetStreamUrlAction,
+  StopBroadcastAction,
+  SubscribeAction,
+  UnsubscribeAction
+} from '../../public/room/room.actions';
 import { RoomState } from '../../public/room/room.state';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Actions, ofType } from '@ngrx/effects';
@@ -38,14 +44,26 @@ export class SubscriberComponent implements OnInit {
               private store: Store<State>, private actions: Actions) {
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  async beforeUnloadHander(event) {
+  // @HostListener('window:beforeunload', ['$event'])
+  // async beforeUnloadHander(event) {
+  //   this.store.dispatch(new UnsubscribeAction({roomId: this.room.id}));
+  //   await this.actions.pipe(ofType(ActionTypes.DELETE_SUBSCRIBER_SUCCESS, ActionTypes.DELETE_SUBSCRIBER_ERROR))
+  //     .toPromise().then(() => {
+  //       this.session.disconnect();
+  //       return true;
+  //     });
+  // }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event) {
     this.store.dispatch(new UnsubscribeAction({roomId: this.room.id}));
-    await this.actions.pipe(ofType(ActionTypes.DELETE_SUBSCRIBER_SUCCESS, ActionTypes.DELETE_SUBSCRIBER_ERROR))
-      .toPromise().then(() => {
-        this.session.disconnect();
-        return true;
-      });
+    this.session.disconnect();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHander(event) {
+    this.store.dispatch(new UnsubscribeAction({roomId: this.room.id}));
+    this.session.disconnect();
   }
 
   ngOnInit(): void {
