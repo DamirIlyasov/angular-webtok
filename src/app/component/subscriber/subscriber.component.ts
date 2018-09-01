@@ -116,13 +116,13 @@ export class SubscriberComponent implements OnInit {
 
   private subscribe(url: string) {
     this.video = (document.getElementById('video') as HTMLVideoElement);
+    this.isOffline = false;
     // not safari
     if (HLS.isSupported()) {
       this.hls = new HLS();
       this.hls.loadSource(url);
       this.hls.attachMedia(this.video);
       this.hls.on(HLS.Events.MANIFEST_PARSED, () => this.video.play());
-      this.isOffline = false;
     } else
     // safari
     if (this.video.canPlayType('application/vnd.apple.mpegURL')) {
