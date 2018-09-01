@@ -9,12 +9,12 @@
     <div class="row">
       <p class="col-3 col-sm-3 col-lg-3 col-xl-3 col-md-3 text-center viewers">Зрителей: <br/> {{viewersCount === -1 ?
         0: viewersCount}}</p>
-      <button *ngIf="!publishing" [disabled]="!isAvailableToPublish()" (click)="publish()"
+      <button *ngIf="!publishing" [disabled]="!isAvailableToPublish() || disabled || temporaryDisabling" (click)="publish()"
               class="btn btn-success publish col-6 col-sm-6 col-lg-6  col-xl-6 col-md-6">Начать <br/>
         вещание
 
       </button>
-      <button *ngIf="publishing" [disabled]="!isAvailableToUnpublish()" (click)="unpublish()"
+      <button *ngIf="publishing" [disabled]="!isAvailableToUnpublish() || disabled" (click)="unpublish()"
               class="btn btn-danger unpublish col-6 col-sm-6 col-lg-6  col-xl-6 col-md-6">
         Остановить
       </button>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { OpentokService } from '../../core/service/opentok.service';
 import * as OT from '@opentok/client';
 import { createSelector, select, Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import {
   ActionTypes,
   GetSubscribersAction,
   StartBroadcastAction,
-  StopBroadcastAction
+  StopBroadcastAction, UnsubscribeAction
 } from '../../public/room/room.actions';
 import { RoomState } from '../../public/room/room.state';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -41,12 +41,20 @@ export class PublisherComponent implements OnInit {
   room: Room;
   inFullScreen = false;
   subscribers = this.store.pipe(select(getSubscribers), distinctUntilChanged());
+  disabled = false;
+  temporaryDisabling = false;
 
   constructor(private opentokService: OpentokService, private store: Store<State>, private actions: Actions) {
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  async beforeUnloadHander(event) {
+    this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
+  }
+
   publish() {
     if (this.isAvailableToPublish()) {
+      this.disabled = true;
       this.store.dispatch(new StartBroadcastAction({roomId: this.room.id}));
       this.actions.pipe(ofType(ActionTypes.BROADCAST_START_SUCCESS)).subscribe(() => {
         this.session.publish(this.publisher, err => {
@@ -55,17 +63,36 @@ export class PublisherComponent implements OnInit {
           } else {
             this.publishing = true;
           }
+          this.disabled = false;
         });
+      });
+      this.actions.pipe(ofType(ActionTypes.BROADCAST_START_ERROR)).subscribe(() => {
+        this.disabled = false;
       });
     }
   }
 
   unpublish() {
     if (this.isAvailableToUnpublish()) {
+      this.disabled = true;
       this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
       this.actions.pipe(ofType(ActionTypes.BROADCAST_STOP_SUCCESS)).subscribe(() => {
-        this.session.unpublish(this.publisher);
         this.publishing = false;
+        this.temporaryDisabling = true;
+        this.session.unpublish(this.publisher);
+        // this.session.disconnect();
+        // this.session = OT.initSession(this.room.api_key, this.room.session_id);
+        // this.opentokService.connect(this.session, this.room.token).catch(err => alert(err.message));
+        // this.session.forceUnpublish(this.publisher.stream, err => {
+        //   if (!err) {
+        //     this.publishing = false;
+        //     this.session.disconnect();
+        //   }
+        // });
+        this.disabled = false;
+      });
+      this.actions.pipe(ofType(ActionTypes.BROADCAST_STOP_ERROR)).subscribe(() => {
+        this.disabled = false;
       });
     }
   }
@@ -107,8 +134,6 @@ export class PublisherComponent implements OnInit {
       this.viewersCount--;
     });
     this.opentokService.connect(this.session, this.room.token).catch(err => alert(err.message));
-
-
     this.inviteLink = window.location.href;
   }
 

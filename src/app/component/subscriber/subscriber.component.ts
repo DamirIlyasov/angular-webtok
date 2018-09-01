@@ -32,6 +32,8 @@ export class SubscriberComponent implements OnInit {
   inviteLink: string;
   inFullScreen = false;
   isSafari = false;
+  hls;
+  video;
 
   constructor(private opentokService: OpentokService, private changeDetector: ChangeDetectorRef,
               private store: Store<State>, private actions: Actions) {
@@ -75,6 +77,14 @@ export class SubscriberComponent implements OnInit {
         });
         this.session.on('streamDestroyed', event => {
           this.isOffline = true;
+          if (HLS.isSupported()) {
+            this.hls.stopLoad();
+          } else
+          // safari
+          if (this.video.canPlayType('application/vnd.apple.mpegURL')) {
+            this.isSafari = true;
+            this.video.src = '';
+          }
           this.changeDetector.detectChanges();
         });
         this.changeDetector.detectChanges();
@@ -105,20 +115,20 @@ export class SubscriberComponent implements OnInit {
   }
 
   private subscribe(url: string) {
-    const video = (document.getElementById('video') as HTMLVideoElement);
+    this.video = (document.getElementById('video') as HTMLVideoElement);
     // not safari
     if (HLS.isSupported()) {
-      const hls = new HLS();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-      hls.on(HLS.Events.MANIFEST_PARSED, () => video.play());
+      this.hls = new HLS();
+      this.hls.loadSource(url);
+      this.hls.attachMedia(this.video);
+      this.hls.on(HLS.Events.MANIFEST_PARSED, () => this.video.play());
       this.isOffline = false;
     } else
     // safari
-    if (video.canPlayType('application/vnd.apple.mpegURL')) {
+    if (this.video.canPlayType('application/vnd.apple.mpegURL')) {
       this.isOffline = false;
       this.isSafari = true;
-      video.src = url;
+      this.video.src = url;
     }
   }
 }
