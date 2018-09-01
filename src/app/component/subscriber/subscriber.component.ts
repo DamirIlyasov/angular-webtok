@@ -130,5 +130,6 @@ export class SubscriberComponent implements OnInit {
       this.isSafari = true;
       this.video.src = url;
     }
+    this.changeDetector.detectChanges();
   }
 }
