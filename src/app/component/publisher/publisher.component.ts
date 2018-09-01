@@ -8,7 +8,7 @@ import {
   ActionTypes,
   GetSubscribersAction,
   StartBroadcastAction,
-  StopBroadcastAction, UnsubscribeAction
+  StopBroadcastAction
 } from '../../public/room/room.actions';
 import { RoomState } from '../../public/room/room.state';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -47,8 +47,18 @@ export class PublisherComponent implements OnInit {
   constructor(private opentokService: OpentokService, private store: Store<State>, private actions: Actions) {
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  async beforeUnloadHander(event) {
+  // @HostListener('window:beforeunload', ['$event'])
+  // async beforeUnloadHander(event) {
+  //   this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
+  // }
+
+  @HostListener('window:unload', [ '$event' ])
+  unloadHandler(event) {
+    this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
+  }
+
+  @HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHander(event) {
     this.store.dispatch(new StopBroadcastAction({roomId: this.room.id}));
   }
 
@@ -56,7 +66,7 @@ export class PublisherComponent implements OnInit {
     if (this.isAvailableToPublish()) {
       this.disabled = true;
       this.store.dispatch(new StartBroadcastAction({roomId: this.room.id}));
-      this.actions.pipe(ofType(ActionTypes.BROADCAST_START_SUCCESS)).subscribe(() => {
+      this.actions.pipe(ofType(ActionTypes.BROADCAST_START_SUCCESS, ActionTypes.BROADCAST_START_ERROR)).subscribe(() => {
         this.session.publish(this.publisher, err => {
           if (err) {
             alert(err.message);

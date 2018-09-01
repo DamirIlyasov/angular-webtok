@@ -21,7 +21,6 @@ const getStreamUrl = createSelector(
   styleUrls: ['./subscriber.component.scss']
 })
 export class SubscriberComponent implements OnInit {
-
   @ViewChild('subscriberDiv') subscriberDiv: ElementRef;
   session: OT.Session;
   stream: OT.Stream;
